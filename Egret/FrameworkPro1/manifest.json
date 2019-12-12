@@ -1,0 +1,19 @@
+{
+	"initial": [
+		"libs/modules/egret/egret.js",
+		"libs/modules/egret/egret.web.js",
+		"libs/modules/game/game.js",
+		"libs/modules/tween/tween.js",
+		"libs/modules/assetsmanager/assetsmanager.js",
+		"libs/modules/promise/promise.js"
+	],
+	"game": [
+		"bin-debug/Main.js",
+		"bin-debug/demo/IDemoTest.js",
+		"bin-debug/demo/PoolTest/PoolTest.js",
+		"bin-debug/framework/ObjectPool/IPoolObject.js",
+		"bin-debug/framework/ObjectPool/ObjectPool.js",
+		"bin-debug/framework/ObjectPool/ObjectPoolManager.js",
+		"bin-debug/framework/utility/IntUtil.js"
+	]
+}
