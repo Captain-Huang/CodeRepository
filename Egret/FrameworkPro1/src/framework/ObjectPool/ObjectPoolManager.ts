@@ -1,4 +1,6 @@
-
+/**
+ * 对象池管理类
+ */
 class ObjectPoolManager {
     public static _inst: ObjectPoolManager;
     private _poolDict: Object;
@@ -14,15 +16,24 @@ class ObjectPoolManager {
         return this._inst;
     }
 
+    /**
+     * 从池中取出对象
+     */
     public getObject(clazz: any): IPoolObject {
-        return this.getOjbectPool(clazz).getObject();
+        return this.getObjectPool(clazz).getObject();
     }
 
+    /**
+     * 将对象放入池
+     */
     public releaseObject(obj: IPoolObject): void {
-        this.getOjbectPool(obj).releaseObject(obj);
+        this.getObjectPool(obj).releaseObject(obj);
     }
 
-    public getOjbectPool(clazz: any): ObjectPool {
+    /**
+     * 获取对象池
+     */
+    public getObjectPool(clazz: any): ObjectPool {
         var type:string = egret.getQualifiedClassName(clazz);
         var pool:ObjectPool = this._poolDict[type];
         if (!pool) {
@@ -31,15 +42,23 @@ class ObjectPoolManager {
         return pool;
     }
 
+    /**
+     * 注册对象池
+     */
     public registerObjectPool(clazz: any, minimum: number = 0, maximun:number = IntUtil.MAX_VALUE): ObjectPool {
         var type:string = egret.getQualifiedClassName(clazz);
         var pool:ObjectPool = this._poolDict[type];
         if (!pool) {
-            this._poolDict[clazz] = new ObjectPool(clazz, minimum, maximun);
+            pool = this._poolDict[type] = new ObjectPool(clazz, minimum, maximun);
+        } else {
+            console.error("对象池已经存在，无需注册");
         }
         return pool;
     }
 
+    /**
+     * 注销对象池
+     */
     public unRegisterObjectPool(clazz: any): void {
         var type:string = egret.getQualifiedClassName(clazz);
         var pool:ObjectPool = this._poolDict[type];

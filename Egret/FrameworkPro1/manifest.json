@@ -11,6 +11,7 @@
 		"bin-debug/Main.js",
 		"bin-debug/demo/IDemoTest.js",
 		"bin-debug/demo/PoolTest/PoolTest.js",
+		"bin-debug/demo/PoolTest/TestPoolObj1.js",
 		"bin-debug/framework/ObjectPool/IPoolObject.js",
 		"bin-debug/framework/ObjectPool/ObjectPool.js",
 		"bin-debug/framework/ObjectPool/ObjectPoolManager.js",
