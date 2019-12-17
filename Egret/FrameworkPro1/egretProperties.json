@@ -20,6 +20,12 @@
     },
     {
       "name": "promise"
+    },
+    {
+      "name": "fairygui"
+    },
+    {
+      "name": "rawinflate"
     }
   ]
 }

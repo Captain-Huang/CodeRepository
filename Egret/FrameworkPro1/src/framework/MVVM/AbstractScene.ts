@@ -59,7 +59,7 @@ class AbstractScene implements IScene {
     }
 
     /**
-     * 场景进入完成回调，需手动调用
+     * 场景进入完成回调，需手动调用，且必须调用
      */
     protected onSceneEntered(): void {
         if (this.enterCallback) {
@@ -68,7 +68,7 @@ class AbstractScene implements IScene {
     }
 
     /**
-     * 场景退出完成回调，需手动调用
+     * 场景退出完成回调，需手动调用，且必须调用
      */
     protected onSceneExited(): void {
         if (this.exitCallback) {

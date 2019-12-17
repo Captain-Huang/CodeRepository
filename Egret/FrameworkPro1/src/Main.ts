@@ -80,10 +80,11 @@ class Main extends egret.DisplayObjectContainer {
         console.log("Game Start!");
         this.fooTest();
 
-        // 对象池测试
-        var poolTest = new PoolTest();
-        poolTest.begin();
-        poolTest.stop();
+        // 设置根节点
+       UICore.init(this);
+       
+       // demo入口
+
     }
 
     private fooTest():void {
