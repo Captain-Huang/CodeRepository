@@ -84,7 +84,8 @@ class Main extends egret.DisplayObjectContainer {
        UICore.init(this);
        
        // demo入口
-
+       var demoMenu = new DemoMenu();
+       demoMenu.init();
     }
 
     private fooTest():void {

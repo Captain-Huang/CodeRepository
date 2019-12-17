@@ -6,7 +6,7 @@ class UICore {
     private static _uiRoot: fairygui.GComponent;
 
     public static init(rootContainer: egret.DisplayObjectContainer): void {
-        this._uiRoot = fairygui.GRoot.inst;
+        this._uiRoot = fgui.GRoot.inst;
         this._root = rootContainer;
         this._root.addChild(this._uiRoot.displayObject);
     }
@@ -28,13 +28,13 @@ class UICore {
     /**
      * 渲染UI根节点
      */
-    public static set uiRoot(value: fairygui.GComponent) {
+    public static set uiRoot(value: fgui.GComponent) {
         this._uiRoot = value;
     }
     /**
      * 渲染UI根节点
      */
-    public static get uiRoot(): fairygui.GComponent {
+    public static get uiRoot(): fgui.GComponent {
         return this._uiRoot;
     }
 }

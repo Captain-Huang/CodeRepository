@@ -5,16 +5,34 @@
 		"libs/modules/game/game.js",
 		"libs/modules/tween/tween.js",
 		"libs/modules/assetsmanager/assetsmanager.js",
-		"libs/modules/promise/promise.js"
+		"libs/modules/promise/promise.js",
+		"libs/rawinflate/rawinflate.js",
+		"libs/fairygui/fairygui.js"
 	],
 	"game": [
+		"bin-debug/framework/mvvm/IModule.js",
 		"bin-debug/Main.js",
+		"bin-debug/demo/demoMenu/DemoMenu.js",
+		"bin-debug/demo/mvvmTest/GameScene.js",
+		"bin-debug/demo/mvvmTest/MVVMTest.js",
+		"bin-debug/demo/poolTest/PoolTest.js",
+		"bin-debug/demo/poolTest/TestPoolObj1.js",
+		"bin-debug/framework/mvvm/AbstractModel.js",
+		"bin-debug/framework/mvvm/AbstractModule.js",
+		"bin-debug/framework/mvvm/AbstractScene.js",
+		"bin-debug/framework/mvvm/AbstractUIView.js",
+		"bin-debug/framework/mvvm/IModel.js",
 		"bin-debug/demo/IDemoTest.js",
-		"bin-debug/demo/PoolTest/PoolTest.js",
-		"bin-debug/demo/PoolTest/TestPoolObj1.js",
-		"bin-debug/framework/ObjectPool/IPoolObject.js",
-		"bin-debug/framework/ObjectPool/ObjectPool.js",
-		"bin-debug/framework/ObjectPool/ObjectPoolManager.js",
-		"bin-debug/framework/utility/IntUtil.js"
+		"bin-debug/framework/mvvm/IScene.js",
+		"bin-debug/framework/mvvm/IUIView.js",
+		"bin-debug/framework/mvvm/SceneManager.js",
+		"bin-debug/framework/mvvm/SceneState.js",
+		"bin-debug/framework/objectPool/IPoolObject.js",
+		"bin-debug/framework/objectPool/ObjectPool.js",
+		"bin-debug/framework/objectPool/ObjectPoolManager.js",
+		"bin-debug/framework/ui/UICore.js",
+		"bin-debug/framework/utility/ArrayUtil.js",
+		"bin-debug/framework/utility/IntUtil.js",
+		"bin-debug/framework/utility/ObjectUtil.js"
 	]
 }

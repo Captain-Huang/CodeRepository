@@ -22,10 +22,12 @@
       "name": "promise"
     },
     {
-      "name": "fairygui"
+      "name": "rawinflate",
+      "path": "./libs/rawinflate"
     },
     {
-      "name": "rawinflate"
+      "name": "fairygui",
+      "path": "./libs/fairygui"
     }
   ]
 }

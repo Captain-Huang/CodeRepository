@@ -1,6 +1,6 @@
 class DemoMenu {
     private demoNameArray: Array<string>;
-    private _view: fairygui.GComponent;
+    private _view: fgui.GComponent;
 
     public constructor() {
         this.demoNameArray = ["对象池", "MVVM", "计时器", "资源加载", "UI封装", "数据表", "自定义纹理格式", "2D序列帧动画", "2D骨骼动画", "2D动作渲染", "2D地图", "A*寻路", "角色状态机", "2D技能",];
@@ -27,7 +27,9 @@ class DemoMenu {
     }
 
     protected onInit():void {
-        fairygui.UIPackage.addPackage("asset/ui/DemoMenu");        
+        fgui.UIPackage.addPackage("DemoMenu");
+        this._view = fgui.UIPackage.createObject("DemoMenu", "Main").asCom;
+        UICore.uiRoot.addChild(this._view);
     }
 
     protected show() {
