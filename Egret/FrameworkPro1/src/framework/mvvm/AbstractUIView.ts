@@ -3,7 +3,7 @@
  */
 class AbstractUIView implements IUIView {
 
-    private _view: fairygui.GComponent;
+    protected _view: fairygui.GComponent;
 
     public constructor(view:fairygui.GComponent = null) {
         this._view = view;
@@ -21,8 +21,13 @@ class AbstractUIView implements IUIView {
     /**
      * 初始化
      */
-    public init(): void {
+    protected init(): void {
         this.onInit();
+        this.onInitView();
+    }
+
+    protected onInitView():void {
+
     }
 
     /**

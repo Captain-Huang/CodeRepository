@@ -8,11 +8,6 @@ interface IUIView {
     view:fairygui.GComponent;
 
     /**
-     * 初始化
-     */
-    init();
-
-    /**
      * 界面显示
      */
     show();

@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json",
+			"keys": "bg_jpg,egret_icon_png,description_json,UILib,UILib_atlas0",
 			"name": "preload"
 		},
 		{
@@ -11,6 +11,10 @@
 		{
 			"keys": "DemoMenu",
 			"name": "DemoMenu"
+		},
+		{
+			"keys": "Timer",
+			"name": "Timer"
 		}
 	],
 	"resources": [
@@ -38,6 +42,21 @@
 			"url": "assets/ui/MVVM.fui",
 			"type": "bin",
 			"name": "MVVM"
+		},
+		{
+			"url": "assets/ui/UILib.fui",
+			"type": "bin",
+			"name": "UILib"
+		},
+		{
+			"url": "assets/ui/UILib_atlas0.png",
+			"type": "image",
+			"name": "UILib_atlas0"
+		},
+		{
+			"url": "assets/ui/Timer.fui",
+			"type": "bin",
+			"name": "Timer"
 		}
 	]
 }

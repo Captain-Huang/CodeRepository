@@ -67,6 +67,7 @@ class Main extends egret.DisplayObjectContainer {
     private async loadResource() {
         try {
             await RES.loadConfig("resource/default.res.json", "resource/");
+            await RES.loadGroup("preload");
         }
         catch (e) {
             console.error(e);
@@ -76,24 +77,26 @@ class Main extends egret.DisplayObjectContainer {
     /**
      * 初始化游戏
      */
-    private initGame():void {
+    private initGame(): void {
         console.log("Game Start!");
         this.fooTest();
 
-        // 设置根节点
-       UICore.init(this);
-       
-       // demo入口
-       var demoMenu = new DemoMenu();
-       demoMenu.init();
+        // 初始化UI
+        App.inst.startUp();
+        UICore.init(this);
+
+        // demo入口
+        var demoMenu = new DemoMenu();
+        demoMenu.init();
     }
 
-    private fooTest():void {
+    private fooTest(): void {
         // 获取类名
-        console.log("根据类获取类名："+ egret.getQualifiedClassName(PoolTest));
-        console.log("根据类对象获取类名："+ egret.getQualifiedClassName(new PoolTest()));
+        console.log("根据类获取类名：" + egret.getQualifiedClassName(PoolTest));
+        console.log("根据类对象获取类名：" + egret.getQualifiedClassName(new PoolTest()));
+        console.log("根据函数获取函数：" + egret.getQualifiedClassName(this.initGame));
         // 空数组pop
-        var arrTest :Array<any> = [];
-        console.log("空数组pop: "+ arrTest.pop());
+        var arrTest: Array<any> = [];
+        console.log("空数组pop: " + arrTest.pop());
     }
 }

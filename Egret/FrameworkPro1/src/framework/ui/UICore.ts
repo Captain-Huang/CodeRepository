@@ -9,6 +9,10 @@ class UICore {
         this._uiRoot = fgui.GRoot.inst;
         this._root = rootContainer;
         this._root.addChild(this._uiRoot.displayObject);
+        LayerManager.inst.root = this._root;
+        LayerManager.inst.uiRoot = this._uiRoot;
+        LayerManager.inst.init();
+        StageManager.inst.stage = this._root.stage;
     }
 
     /**
@@ -31,6 +35,7 @@ class UICore {
     public static set uiRoot(value: fgui.GComponent) {
         this._uiRoot = value;
     }
+
     /**
      * 渲染UI根节点
      */

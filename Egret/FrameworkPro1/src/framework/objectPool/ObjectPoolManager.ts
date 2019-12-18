@@ -2,7 +2,7 @@
  * 对象池管理类
  */
 class ObjectPoolManager {
-    public static _inst: ObjectPoolManager;
+    private static _inst: ObjectPoolManager;
     private _poolDict: Object;
 
     public constructor() {
