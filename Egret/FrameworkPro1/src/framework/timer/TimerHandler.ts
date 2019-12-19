@@ -16,10 +16,14 @@ class TimerHandler implements IPoolObject {
     private _thisObjUid: string;
 
     public get hashCode(): string {
-        if (!this._hashCode) {
+        if (this._hashCode == null) {
             this._hashCode = this._thisObjUid + "_" + this._funcUid;
         }
         return this._hashCode;
+    }
+
+    public set hashCode(value:string) {
+        this._hashCode = value;
     }
 
     public set callback(value: Function) {
@@ -27,6 +31,9 @@ class TimerHandler implements IPoolObject {
             value["__uid"] = IntUtil.createUniqueInt().toString();
         }
         this._funcUid = value["__uid"];
+        if (this._thisObjUid != null) {
+            this._hashCode = this._thisObjUid + "_" + this._funcUid;
+        }
         this._callback = value;
     }
 
@@ -39,6 +46,9 @@ class TimerHandler implements IPoolObject {
             value["__uid"] = IntUtil.createUniqueInt().toString();
         }
         this._thisObjUid = value["__uid"];
+        if (this._funcUid != null) {
+            this._hashCode = this._thisObjUid + "_" + this._funcUid;
+        }
         this._thisObj = value;
     }
 

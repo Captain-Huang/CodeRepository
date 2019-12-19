@@ -12,6 +12,8 @@ class TimerManager {
 
     public constructor() {
         this.timerHandlers = [];
+        this._curTime = 0;
+        this._curFrame = 0;
     }
 
     public static get inst(): TimerManager {

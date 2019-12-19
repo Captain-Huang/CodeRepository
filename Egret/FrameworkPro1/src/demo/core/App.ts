@@ -30,7 +30,8 @@ class App {
     }
 
     public onTick(time: number): boolean {
-        TimerManager.inst.update(this._curTime - time);
+        TimerManager.inst.update(time - this._curTime);
+        this._curTime = time;
         return false;
     }
 }
