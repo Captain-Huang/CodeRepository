@@ -12,6 +12,8 @@ class TimerView extends AbstractUIView {
     private btnUnLoop: fgui.GButton;
     private btnUnFrameLoop: fgui.GButton;
 
+    private count: number;
+
     /**
     * 初始化
     */
@@ -45,14 +47,17 @@ class TimerView extends AbstractUIView {
      * 显示
      */
     protected onShow(...args: Array<any>): void {
-
+        this.count = 0;
+        this.content.text = "点击按钮开始测试计时器 count=" + this.count;
     }
 
     /**
      * 关闭
      */
     protected onClose(): void {
-
+        this.count = 0;
+        this.onBtnUnFrameLoopClick();
+        this.onBtnUnLoopClick();
     }
 
     /**
@@ -64,7 +69,8 @@ class TimerView extends AbstractUIView {
 
     private onBtnOnceClick(): void {
         TimerManager.inst.registerOnce(4000, () => {
-            this.content.text = "4秒后执行了计时器 一次";
+            this.count++;
+            this.content.text = "4秒后执行了计时器 一次  " + this.count;
         }, this)
     }
 
@@ -73,12 +79,14 @@ class TimerView extends AbstractUIView {
     }
 
     private timerLoopCallback(): void {
-        this.content.text = "4秒后执行了计时器 循环";
+        this.count++;
+        this.content.text = "4秒后执行了计时器 循环  " + this.count;
     }
 
     private onBtnFrameClick(): void {
         TimerManager.inst.registerFrameOnce(300, () => {
-            this.content.text = "300帧后执行了计时器 一次";
+            this.count++;
+            this.content.text = "300帧后执行了计时器 一次  " + this.count;
         }, this)
     }
 
@@ -87,21 +95,27 @@ class TimerView extends AbstractUIView {
     }
 
     private timerFrameLoopCallback(): void {
-        this.content.text = "300帧后执行了计时器 循环";
+        this.count++;
+        this.content.text = "300帧后执行了计时器 循环  " + this.count;
     }
 
     private onBtnFourTimesClick(): void {
         TimerManager.inst.register(false, 4000, () => {
-            this.content.text = "4秒后执行了计时器 多次";
+            this.count++;
+            this.content.text = "4秒后执行了计时器 多次  " + this.count;
         }, this, 4)
     }
 
     private onBtnUnLoopClick(): void {
         TimerManager.inst.unRegister(this.timerLoopCallback, this)
+        this.count = 0;
+        this.content.text = "移除循环计时器  " + this.count;
     }
 
     private onBtnUnFrameLoopClick(): void {
         TimerManager.inst.unRegister(this.timerFrameLoopCallback, this)
+        this.count = 0;
+        this.content.text = "移除帧循环计时器  " + this.count;
     }
 
     private onBtnCloseClick(): void {

@@ -84,6 +84,7 @@ class Main extends egret.DisplayObjectContainer {
         // 初始化UI
         App.inst.startUp();
         UICore.init(this);
+        egret.ImageLoader.crossOrigin = "anonymous";
 
         // demo入口
         var demoMenu = new DemoMenu();
@@ -98,5 +99,19 @@ class Main extends egret.DisplayObjectContainer {
         // 空数组pop
         var arrTest: Array<any> = [];
         console.log("空数组pop: " + arrTest.pop());
+        // 条件执行语句
+        var flag1: boolean = (1 + 1 == 2) ? true : false;
+        flag1 === true && this.printHelloWorld();
+        // 引用类型
+        var testDict: Object = {};
+        var obj1 = testDict["testObj1"];
+        if (obj1 == null) {
+            testDict["testObj1"] = new LoadItem();
+        }
+        console.log("引用类型， obj1:" + obj1 + "  testDict[testObj1]:" + testDict["testObj1"]);
+    }
+
+    private printHelloWorld(): void {
+        console.log("Hello world!");
     }
 }

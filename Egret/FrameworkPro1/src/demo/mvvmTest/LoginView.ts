@@ -24,7 +24,14 @@ class LoginView extends AbstractUIView {
      * 显示
      */
     protected onShow(...args: Array<any>): void {
+        this.modulesText.text = "";
+        var str: string = "";
+        for (var module of GameScene.loginScene.modules) {
+            str += module.moduleName;
+        }
+        this.modulesText.text = str;
 
+        this.sceneNameText.text = "登录场景";
     }
 
     /**

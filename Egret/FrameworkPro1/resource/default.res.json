@@ -15,6 +15,10 @@
 		{
 			"keys": "Timer",
 			"name": "Timer"
+		},
+		{
+			"keys": "AssetLoad",
+			"name": "AssetLoad"
 		}
 	],
 	"resources": [
@@ -57,6 +61,11 @@
 			"url": "assets/ui/Timer.fui",
 			"type": "bin",
 			"name": "Timer"
+		},
+		{
+			"url": "assets/ui/AssetLoad.fui",
+			"type": "bin",
+			"name": "AssetLoad"
 		}
 	]
 }

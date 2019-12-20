@@ -7,28 +7,31 @@ class DemoMenu {
 
     private subView: fgui.GComponent;
 
-    public static readonly "OBJECTPOOL" = "对象池";
-    public static readonly "MVVM" = "MVVM";
-    public static readonly "TIMER" = "计时器";
-    public static readonly "ASSET" = "资源加载";
-    public static readonly "UIFRAMEWORK" = "UI封装";
-    public static readonly "TABLE" = "数据表";
-    public static readonly "CUSTOMATLAS" = "自定义纹理";
-    public static readonly "MOVIECLIP" = "2D序列帧动画";
-    public static readonly "DRAGONBONES" = "骨骼动画";
-    public static readonly "ACTION2D" = "2D动作渲染";
-    public static readonly "MAP2D" = "2D地图";
-    public static readonly "ASTAR" = "A*寻路";
-    public static readonly "ROLECONTROL" = "角色状态机";
-    public static readonly "PARTICLE2D" = "2D技能";
-    public static readonly "NETWORK" = "网络和协议";
-    public static readonly "AUDIO" = "声音";
+    public static readonly OBJECTPOOL = "对象池";
+    public static readonly MVVM = "MVVM";
+    public static readonly TIMER = "计时器";
+    public static readonly ASSET_LOADER = "资源加载";
+    public static readonly ASSET_Manager = "资源管理";
+    public static readonly UIFRAMEWORK = "UI封装";
+    public static readonly TABLE = "数据表";
+    public static readonly CUSTOMATLAS = "自定义纹理";
+    public static readonly MOVIECLIP = "2D序列帧动画";
+    public static readonly DRAGONBONES = "骨骼动画";
+    public static readonly ACTION2D = "2D动作渲染";
+    public static readonly MAP2D = "2D地图";
+    public static readonly ASTAR = "A*寻路";
+    public static readonly ROLECONTROL = "角色状态机";
+    public static readonly PARTICLE2D = "2D技能";
+    public static readonly NETWORK = "网络和协议";
+    public static readonly AUDIO = "声音";
+    
     public constructor() {
         this.demoNameArray = [
             DemoMenu.OBJECTPOOL,
             DemoMenu.MVVM,
             DemoMenu.TIMER,
-            DemoMenu.ASSET,
+            DemoMenu.ASSET_LOADER,
+            DemoMenu.ASSET_Manager,
             DemoMenu.UIFRAMEWORK,
             DemoMenu.TABLE,
             DemoMenu.CUSTOMATLAS,
@@ -46,7 +49,8 @@ class DemoMenu {
             this.testPool,
             this.testMVVM,
             this.testTimer,
-            this.testRES,
+            this.testRESLoad,
+            this.testAssetManager,
             this.testUIFramework,
             this.testTable,
             this.testCustomAtlas,
@@ -64,7 +68,8 @@ class DemoMenu {
             this.testPoolClose,
             this.testMVVMClose,
             this.testTimerClose,
-            this.testRESClose,
+            this.testRESLoadClose,
+            this.testAssetManagerClose,
             this.testUIFrameworkClose,
             this.testTableClose,
             this.testCustomAtlasClose,
@@ -161,12 +166,26 @@ class DemoMenu {
         this.timerTest = null;
     }
 
-    private testRESClose(): void {
-
+    private resLoadTest: LoaderTest;
+    private testRESLoad(): void {
+        this.resLoadTest = new LoaderTest();
+        this.resLoadTest.begin();
     }
 
-    private testRES(): void {
+    private testRESLoadClose(): void {
+        this.resLoadTest.stop();
+        this.resLoadTest = null;
+    }
 
+    private assetManagerTest: LoaderTest;
+    private testAssetManager(): void {
+        this.assetManagerTest = null; //new LoaderTest();
+        this.assetManagerTest.begin();
+    }
+
+    private testAssetManagerClose(): void {
+        this.assetManagerTest.stop();
+        this.assetManagerTest = null;
     }
 
     private testUIFramework(): void {
