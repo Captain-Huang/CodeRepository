@@ -3,15 +3,16 @@
  */
 interface ILoader extends IPoolObject {
     url: string;
+    asset: IAsset;
 
     /**
      * 开始下载
      */
     start();
 
-    completeCallback;
+    completeCallback: Handler;
 
-    progressCallback;
+    progressCallback: Handler;
 
-    errorCallback;
+    errorCallback: Handler;
 }

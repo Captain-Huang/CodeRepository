@@ -60,33 +60,28 @@ class LoadManager {
             this.loadDict[loadItem.url] = item = loadItem;
             this.loadPriorityDict[loadItem.loadPriority].push(item);
         } else {
-            // 下载队列中存在此下载项
-            var loader: ILoader = LoaderFactory.createLoader(loadItem.url, loadItem.loadType);
-            loader.completeCallback = Handler.create(this.onLoadComplete, this);
-            loader.progressCallback = Handler.create(this.onLoadProgress, this);
-            loader.errorCallback = Handler.create(this.onLoadError, this);
-            this.loadDict[loadItem.url] = loader;
-            var loaders: Array<ILoader> = this.loadPriorityDict[loadItem.loadPriority];
-            if (loaders == null) {
-                this.loadPriorityDict[loadItem.loadPriority] = loaders = [];
+            // 下载队列中存在此下载项，重新排序下载列表
+            if (loadItem.loadPriority != item.loadPriority) {
+                ArrayUtil.removeItems(this.loadPriorityDict[item.loadPriority], item);
+                this.loadPriorityDict[loadItem.loadPriority].push(loadItem);
+                ObjectPoolManager.inst.releaseObject(item);
+                this.loadDict[loadItem.url] = loadItem;
             }
-            loaders.push(loader);
-            this.loadNext(loadItem);
+            this.loadNext();
         }
-
         return loadItem;
     }
 
-    public loadNext(loadItem: LoadItem): void {
+    public loadNext(): void {
         if (this.curLoaderArr.length >= this.maxLoadCount) {
             return;
         }
         for (var i = LoadPriority.LV_0; i <= LoadPriority.LV_4; i++) {
-            var loaders = this.loadPriorityDict[i] as Array<ILoader>;
-            while (loaders && loaders.length > 0) {
-                var loader = loaders[0];
-                this.curLoaderArr.push(loader);
-                loader.start();
+            var items: Array<LoadItem> = this.loadPriorityDict[i];
+            while (items.length > 0) {
+                var item = items[0];
+                this.startLoad(item);
+                items.splice(0, 1);
                 if (this.curLoaderArr.length >= this.maxLoadCount) {
                     return;
                 }
@@ -94,40 +89,52 @@ class LoadManager {
         }
     }
 
-    private onLoadComplete(event: egret.Event): void {
-        var url = event.data as string;
-        var loadItem: LoadItem = this.loadDict[url];
+    public startLoad(loadItem: LoadItem): void {
+        var loader: ILoader = LoaderFactory.createLoader(loadItem.url, loadItem.loadType);
+        loader.completeCallback = Handler.create(this.onLoadComplete, this);
+        loader.progressCallback = Handler.create(this.onLoadProgress, this, null, false);
+        loader.errorCallback = Handler.create(this.onLoadError, this);
+        this.curLoaderArr.push(loader);
+        loader.start();
+    }
+
+    private onLoadComplete(loader: ILoader): void {
+        var loadItem: LoadItem = this.loadDict[loader.url];
+        if (loader.asset != null) {
+            loadItem.asset = loader.asset;
+            // TODO 缓存资源
+        }
+        // 从当前下载列表中移除
+        if (this.curLoaderArr.indexOf(loader) != -1) {
+            ArrayUtil.removeItems(this.curLoaderArr, loader);
+            ObjectPoolManager.inst.releaseObject(loader);
+        }
         this.endLoad(loadItem);
 
-        this.loadNext(loadItem);
+        this.loadNext();
     }
 
-    private onLoadProgress(event: egret.Event): void {
+    private onLoadProgress(loader: ILoader): void {
 
     }
 
-    private onLoadError(event: egret.Event): void {
-        var loadItem: LoadItem = event.data as LoadItem;
+    private onLoadError(loader: ILoader): void {
+        var loadItem: LoadItem = this.loadDict[loader.url];
+        // 从当前下载列表中移除
+        if (this.curLoaderArr.indexOf(loader) != -1) {
+            ArrayUtil.removeItems(this.curLoaderArr, loader);
+            ObjectPoolManager.inst.releaseObject(loader);
+        }
+        this.endLoad(loadItem);
 
+        this.loadNext();
     }
 
     private endLoad(loadItem: LoadItem): void {
-        // 释放loadItem 释放Loader
-        var loader: any = this.loadDict[loadItem.url];
-        if (loader) {
-            delete this.loadDict[loadItem.url];
-            var index: number = this.curLoaderArr.indexOf(loader);
-            if (index != -1) {
-                this.curLoaderArr.slice(index, index + 1);
-            }
-            var prioriryLoaderArr: Array<ILoader> = this.loadPriorityDict[loadItem.loadPriority];
-            if (prioriryLoaderArr != null) {
-                var priorityIndex: number = prioriryLoaderArr.indexOf(loader);
-                if (priorityIndex != -1) {
-                    prioriryLoaderArr.slice(priorityIndex, priorityIndex + 1);
-                }
-            }
-            ObjectPoolManager.inst.releaseObject(loader);
-        }
+        // 释放loadItem
+        delete this.loadDict[loadItem.url];
+        var prioriryLoaderArr: Array<LoadItem> = this.loadPriorityDict[loadItem.loadPriority];
+        ArrayUtil.removeItems(prioriryLoaderArr, loadItem);
+        ObjectPoolManager.inst.releaseObject(loadItem);
     }
 }

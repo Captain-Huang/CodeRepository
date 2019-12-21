@@ -8,6 +8,7 @@ class AbstractLoader implements ILoader {
     public progressCallback: Handler;
     public errorCallback: Handler;
     public url: string;
+    public asset: IAsset;
 
     public constructor() {
 
@@ -28,21 +29,12 @@ class AbstractLoader implements ILoader {
 
     }
 
-    protected loadCompleteCallback(event: egret.Event): void {
+    /**
+     * 下载完成执行回调
+     */
+    protected executeLoadComplete(): void {
         if (this.completeCallback != null) {
-            this.completeCallback.runWith(this.url);
-        }
-    }
-
-    protected loadProgressCallback(event: egret.Event): void {
-        if (this.progressCallback != null) {
-            this.progressCallback.run();
-        }
-    }
-
-    protected loadErrorCallback(event: egret.Event): void {
-        if (this.errorCallback != null) {
-            this.errorCallback.run();
+            this.completeCallback.runWith(this);
         }
     }
 

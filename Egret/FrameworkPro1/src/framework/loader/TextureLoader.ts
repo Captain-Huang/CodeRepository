@@ -11,13 +11,16 @@ class TextureLoader extends AbstractLoader {
 
     protected executeLoad(): void {
         super.executeLoad();
-        this.imageLoader.addEventListener(egret.Event.COMPLETE, this.loadCompleteCallback, this);
-        this.imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.loadErrorCallback, this);
+        this.imageLoader.addEventListener(egret.Event.COMPLETE, this.onLoadCompleteCallback, this);
+        this.imageLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onLoadErrorCallback, this);
         this.imageLoader.load(this.url);
     }
 
-    protected loadCompleteCallback(event: egret.Event): void {
-        super.loadCompleteCallback(event);
+    protected onLoadCompleteCallback(event: egret.Event): void {
         console.log("图片加载完成：" + this.url);
+    }
+
+    protected onLoadErrorCallback(event: egret.Event): void {
+        this.executeLoad();
     }
 }
