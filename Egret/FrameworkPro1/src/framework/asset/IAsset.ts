@@ -1,6 +1,7 @@
 /**
  * 资源接口
  */
-interface IAsset {
+interface IAsset extends IPoolObject {
     url: string;
+    data: any;
 }

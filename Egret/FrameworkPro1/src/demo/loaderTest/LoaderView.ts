@@ -70,11 +70,10 @@ class LoaderView extends AbstractUIView {
 
     }
 
-    private onResCompleteCallback(event: egret.Event): void {
-        var target = event.target as egret.ImageLoader;
-        if (target != null && target.data) {
+    private onResCompleteCallback(loadItem:LoadItem): void {
+        if (loadItem != null && loadItem.asset) {
             var tex = new egret.Texture();
-            tex.bitmapData = target.data
+            tex.bitmapData = loadItem.asset.data as egret.BitmapData;
             this.spImg.texture = tex;
         }
         console.log("资源加载回调");

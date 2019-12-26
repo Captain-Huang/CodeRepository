@@ -13,6 +13,7 @@ class DemoMenu {
     public static readonly ASSET_LOADER = "资源加载";
     public static readonly ASSET_Manager = "资源管理";
     public static readonly UIFRAMEWORK = "UI封装";
+    public static readonly NETWORK = "网络和协议";    
     public static readonly TABLE = "数据表";
     public static readonly CUSTOMATLAS = "自定义纹理";
     public static readonly MOVIECLIP = "2D序列帧动画";
@@ -22,7 +23,6 @@ class DemoMenu {
     public static readonly ASTAR = "A*寻路";
     public static readonly ROLECONTROL = "角色状态机";
     public static readonly PARTICLE2D = "2D技能";
-    public static readonly NETWORK = "网络和协议";
     public static readonly AUDIO = "声音";
     
     public constructor() {
@@ -33,6 +33,7 @@ class DemoMenu {
             DemoMenu.ASSET_LOADER,
             DemoMenu.ASSET_Manager,
             DemoMenu.UIFRAMEWORK,
+            DemoMenu.NETWORK,            
             DemoMenu.TABLE,
             DemoMenu.CUSTOMATLAS,
             DemoMenu.MOVIECLIP,
@@ -42,7 +43,6 @@ class DemoMenu {
             DemoMenu.ASTAR,
             DemoMenu.ROLECONTROL,
             DemoMenu.PARTICLE2D,
-            DemoMenu.NETWORK,
             DemoMenu.AUDIO,
         ];
         this.demoOpenFuncArray = [
@@ -52,6 +52,7 @@ class DemoMenu {
             this.testRESLoad,
             this.testAssetManager,
             this.testUIFramework,
+            this.testNetwork,            
             this.testTable,
             this.testCustomAtlas,
             this.test2DMovieClip,
@@ -61,7 +62,6 @@ class DemoMenu {
             this.testAStar,
             this.testRoleControl,
             this.test2DParticle,
-            this.testNetwork,
             this.testAudio,
         ];
         this.demoCloseFuncArray = [
@@ -71,6 +71,7 @@ class DemoMenu {
             this.testRESLoadClose,
             this.testAssetManagerClose,
             this.testUIFrameworkClose,
+            this.testNetworkClose,            
             this.testTableClose,
             this.testCustomAtlasClose,
             this.test2DMovieClipClose,
@@ -80,7 +81,6 @@ class DemoMenu {
             this.testAStarClose,
             this.testRoleControlClose,
             this.test2DParticleClose,
-            this.testNetworkClose,
             this.testAudioClose,
         ];
         if (this.demoOpenFuncArray.length != this.demoNameArray.length) {

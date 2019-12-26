@@ -11,5 +11,4 @@ enum LoadType {
     TEXTURE_ATLAS = 6,
     AUDIO = 7,
     SKELETON = 8,
-    SKELETON_ZIP = 9
 }

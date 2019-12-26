@@ -27,11 +27,13 @@ class LoadManager {
         }
     }
 
-    public load(url: string, loadType: LoadType = LoadType.AUTO, loadPriority: LoadPriority = LoadPriority.LV_4, completeCallback?: Handler, progressCallback?: Handler, errorCallback?: Handler, cache?: boolean): LoadItem {
-        var loadItem: LoadItem = ObjectPoolManager.inst.getObject(LoadItem) as LoadItem;
+    public load(url: string, loadType: LoadType = LoadType.AUTO, loadPriority: LoadPriority = LoadPriority.LV_4, completeCallback?: Handler, progressCallback?: Handler, errorCallback?: Handler, cache?: boolean, loadParams?: Array<LoadParam>): LoadItem {
+        var loadItem: LoadItem = new LoadItem();
         loadItem.url = url;
         loadItem.loadType = loadType;
         loadItem.loadPriority = loadPriority;
+        loadItem.cache = cache;
+        loadItem.loadParams = loadParams;
         if (completeCallback != null) {
             loadItem.completeCallbacks.push(completeCallback);
         }
@@ -44,12 +46,53 @@ class LoadManager {
         return this.loadItem(loadItem);
     }
 
+    /**
+     * 下载资源列表
+     */
+    public loadItems(items:Array<LoadItem>, completeCallback?:Handler , progressCallback?:Handler, errorCallback?:Handler, dispatchEvent?:boolean):LoadQueue {
+        return this.loadQueue(new LoadQueue(items, completeCallback, progressCallback, errorCallback, dispatchEvent));
+    }
+
+    /**
+     * 下载资源列表
+     */
+    public loadQueue(queue:LoadQueue):LoadQueue {
+        queue.load();
+        return queue;
+    }
+
+
+    public removeLoadCallback(url: string, completeCallback?: Handler): void {
+        var loadItem: LoadItem = this.loadDict[url];
+        if (loadItem != null) {
+            if (completeCallback != null) {
+                ArrayUtil.removeItems(loadItem.completeCallbacks, completeCallback);
+            }
+            if (loadItem.isLoading == false && loadItem.completeCallbacks.length == 0) {
+                this.stopLoad(url);
+            }
+        }
+    }
+
+    public stopLoad(url: string): void {
+        var loadItem: LoadItem = this.loadDict[url];
+        if (loadItem != null) {
+            delete this.loadDict[url];
+            ArrayUtil.removeItems(this.loadPriorityDict[loadItem.loadPriority], loadItem);
+            ArrayUtil.removeItems(this.curLoaderArr, loadItem.loader);
+            ObjectPoolManager.inst.releaseObject(loadItem.loader);
+            loadItem.dispose();
+        }
+    }
+
+
     public loadItem(loadItem: LoadItem): LoadItem {
         var asset: IAsset = AssetManager.inst.getAsset(loadItem.url);
         if (asset != null) {
             // 资源存在
             loadItem.asset = asset;
-            loadItem.runCompleteCallbacks();
+            loadItem.runCompleteCallbacks([loadItem]);
+            loadItem.dispose();
             return loadItem;
         }
 
@@ -64,15 +107,18 @@ class LoadManager {
             if (loadItem.loadPriority != item.loadPriority) {
                 ArrayUtil.removeItems(this.loadPriorityDict[item.loadPriority], item);
                 this.loadPriorityDict[loadItem.loadPriority].push(loadItem);
-                ObjectPoolManager.inst.releaseObject(item);
                 this.loadDict[loadItem.url] = loadItem;
+                loadItem.completeCallbacks = loadItem.completeCallbacks.concat(item.completeCallbacks);
+                loadItem.progressCallbacks = loadItem.progressCallbacks.concat(item.progressCallbacks);
+                loadItem.errorCallbacks = loadItem.errorCallbacks.concat(item.errorCallbacks);
+                item.dispose();
             }
-            this.loadNext();
         }
+        this.loadNext();
         return loadItem;
     }
 
-    public loadNext(): void {
+    private loadNext(): void {
         if (this.curLoaderArr.length >= this.maxLoadCount) {
             return;
         }
@@ -80,20 +126,32 @@ class LoadManager {
             var items: Array<LoadItem> = this.loadPriorityDict[i];
             while (items.length > 0) {
                 var item = items[0];
-                this.startLoad(item);
                 items.splice(0, 1);
-                if (this.curLoaderArr.length >= this.maxLoadCount) {
-                    return;
+
+                // 内存已存在资源
+                var asset: IAsset = AssetManager.inst.getAsset(item.url);
+                if (asset != null) {
+                    item.asset = asset;
+                    this.endLoad(item);
+                } else {
+                    // 不存在该资源，下载
+                    this.startLoad(item);
+                    if (this.curLoaderArr.length >= this.maxLoadCount) {
+                        return;
+                    }
                 }
             }
         }
     }
 
-    public startLoad(loadItem: LoadItem): void {
-        var loader: ILoader = LoaderFactory.createLoader(loadItem.url, loadItem.loadType);
+    private startLoad(loadItem: LoadItem): void {
+        loadItem.isLoading = true;
+        var loader: ILoader = LoaderFactory.createLoader(loadItem.url, loadItem.loadType, loadItem.loadParams);
         loader.completeCallback = Handler.create(this.onLoadComplete, this);
         loader.progressCallback = Handler.create(this.onLoadProgress, this, null, false);
         loader.errorCallback = Handler.create(this.onLoadError, this);
+        loadItem.loader = loader;
+
         this.curLoaderArr.push(loader);
         loader.start();
     }
@@ -104,37 +162,50 @@ class LoadManager {
             loadItem.asset = loader.asset;
             // TODO 缓存资源
         }
-        // 从当前下载列表中移除
+        // 从当前下载列表中移除加载器
         if (this.curLoaderArr.indexOf(loader) != -1) {
             ArrayUtil.removeItems(this.curLoaderArr, loader);
             ObjectPoolManager.inst.releaseObject(loader);
         }
+        // 处理加载项
+        loadItem.runCompleteCallbacks([loadItem]);
         this.endLoad(loadItem);
+        loadItem.dispose();
 
         this.loadNext();
     }
 
     private onLoadProgress(loader: ILoader): void {
-
+        var loadItem: LoadItem = this.loadDict[loader.url];
+        if (loadItem) {
+            loadItem.runCompleteCallbacks([loadItem]);
+        }
     }
 
     private onLoadError(loader: ILoader): void {
         var loadItem: LoadItem = this.loadDict[loader.url];
-        // 从当前下载列表中移除
+        // 从当前下载列表中移除下载项
         if (this.curLoaderArr.indexOf(loader) != -1) {
             ArrayUtil.removeItems(this.curLoaderArr, loader);
             ObjectPoolManager.inst.releaseObject(loader);
         }
+        // 处理加载项
+        loadItem.error = loader.error;
+        loadItem.runErrorCallbacks([loadItem]);
         this.endLoad(loadItem);
+        loadItem.dispose();
 
         this.loadNext();
     }
 
     private endLoad(loadItem: LoadItem): void {
         // 释放loadItem
-        delete this.loadDict[loadItem.url];
-        var prioriryLoaderArr: Array<LoadItem> = this.loadPriorityDict[loadItem.loadPriority];
-        ArrayUtil.removeItems(prioriryLoaderArr, loadItem);
-        ObjectPoolManager.inst.releaseObject(loadItem);
+        if (this.loadDict[loadItem.url] != null) {
+            delete this.loadDict[loadItem.url];
+        }
+    }
+
+    public isLoading(url: string): boolean {
+        return this.loadDict[url] != null;
     }
 }

@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,UILib,UILib_atlas0",
+			"keys": "bg_jpg,egret_icon_png,UILib,UILib_atlas0",
 			"name": "preload"
 		},
 		{
@@ -33,11 +33,6 @@
 			"name": "egret_icon_png"
 		},
 		{
-			"url": "config/description.json",
-			"type": "json",
-			"name": "description_json"
-		},
-		{
 			"url": "assets/ui/DemoMenu.fui",
 			"type": "bin",
 			"name": "DemoMenu"
@@ -66,6 +61,11 @@
 			"url": "assets/ui/AssetLoad.fui",
 			"type": "bin",
 			"name": "AssetLoad"
+		},
+		{
+			"url": "assets/config/description.json",
+			"type": "json",
+			"name": "description_json"
 		}
 	]
 }

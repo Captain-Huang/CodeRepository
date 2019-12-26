@@ -4,11 +4,14 @@
 interface ILoader extends IPoolObject {
     url: string;
     asset: IAsset;
+    error: string;
 
     /**
      * 开始下载
      */
-    start();
+    start(): void;
+
+    addParam(param:LoadParam): void;
 
     completeCallback: Handler;
 
