@@ -50,7 +50,7 @@ class LoadManager {
      * 下载资源列表
      */
     public loadItems(items:Array<LoadItem>, completeCallback?:Handler , progressCallback?:Handler, errorCallback?:Handler, dispatchEvent?:boolean):LoadQueue {
-        return this.loadQueue(new LoadQueue(items, completeCallback, progressCallback, errorCallback, dispatchEvent));
+        return this.loadQueue(new LoadQueue(items, completeCallback, progressCallback, errorCallback));
     }
 
     /**

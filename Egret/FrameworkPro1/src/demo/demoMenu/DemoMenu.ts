@@ -177,9 +177,9 @@ class DemoMenu {
         this.resLoadTest = null;
     }
 
-    private assetManagerTest: LoaderTest;
+    private assetManagerTest: AssetTest;
     private testAssetManager(): void {
-        this.assetManagerTest = null; //new LoaderTest();
+        this.assetManagerTest = new AssetTest();
         this.assetManagerTest.begin();
     }
 
