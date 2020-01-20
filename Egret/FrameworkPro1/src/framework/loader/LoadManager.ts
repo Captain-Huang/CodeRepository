@@ -32,7 +32,7 @@ class LoadManager {
         loadItem.url = url;
         loadItem.loadType = loadType;
         loadItem.loadPriority = loadPriority;
-        loadItem.cache = cache;
+        loadItem.cache = cache == null ? true : cache;
         loadItem.loadParams = loadParams;
         if (completeCallback != null) {
             loadItem.completeCallbacks.push(completeCallback);
@@ -49,14 +49,14 @@ class LoadManager {
     /**
      * 下载资源列表
      */
-    public loadItems(items:Array<LoadItem>, completeCallback?:Handler , progressCallback?:Handler, errorCallback?:Handler, dispatchEvent?:boolean):LoadQueue {
+    public loadItems(items: Array<LoadItem>, completeCallback?: Handler, progressCallback?: Handler, errorCallback?: Handler, dispatchEvent?: boolean): LoadQueue {
         return this.loadQueue(new LoadQueue(items, completeCallback, progressCallback, errorCallback));
     }
 
     /**
      * 下载资源列表
      */
-    public loadQueue(queue:LoadQueue):LoadQueue {
+    public loadQueue(queue: LoadQueue): LoadQueue {
         queue.load();
         return queue;
     }
@@ -160,7 +160,14 @@ class LoadManager {
         var loadItem: LoadItem = this.loadDict[loader.url];
         if (loader.asset != null) {
             loadItem.asset = loader.asset;
-            // TODO 缓存资源
+            //  缓存资源
+            var asset = loader.asset;
+            if (asset != null) {
+                asset.url = loadItem.url;
+                if (loadItem.cache) {
+                    AssetManager.inst.addAsset(asset);
+                }
+            }
         }
         // 从当前下载列表中移除加载器
         if (this.curLoaderArr.indexOf(loader) != -1) {

@@ -133,7 +133,7 @@ class AssetManager {
         }
     }
 
-    private checkClearAsset(force?: boolean): void {
+    public checkClearAsset(force?: boolean): void {
         if (this._assetProxy != null) {
             this._assetProxy.prepareClearAsset();
         }
@@ -154,7 +154,7 @@ class AssetManager {
         for (var removeAsset of removeList) {
             delete this.assetDict[removeAsset.url];
             if (this.showLog == true) {
-                console.info("销毁资源，url:" + asset.url);
+                console.info("销毁资源，url:" + removeAsset.url);
             }
             ObjectPoolManager.inst.releaseObject(removeAsset);
         }

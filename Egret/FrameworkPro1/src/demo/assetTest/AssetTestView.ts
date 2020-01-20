@@ -8,7 +8,7 @@ class AssetTestView extends AbstractUIView {
     private btnUnLoadAsset: fgui.GButton;
     private spImg: fgui.GImage;
 
-    private textureAsset:TextureAsset;
+    private textureAsset: TextureAsset;
 
     /**
     * 初始化
@@ -69,15 +69,20 @@ class AssetTestView extends AbstractUIView {
     }
 
     private onBtnUnLoadAssetClick(): void {
-
+        AssetManager.inst.checkClearAsset(true);
     }
 
-    private onResCompleteCallback(loadItem:LoadItem): void {
+    private onResCompleteCallback(loadItem: LoadItem): void {
         if (loadItem != null && loadItem.asset) {
             this.textureAsset = loadItem.asset as TextureAsset;
             this.spImg.texture = this.textureAsset.texture;
             this.textureAsset.use();
         }
+        TimerManager.inst.registerOnce(1500, () => {
+            this.spImg.removeFromParent();
+            this.spImg.dispose();
+            this.textureAsset.unuse();
+        }, this);
         console.log("资源加载回调");
     }
 }

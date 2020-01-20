@@ -105,10 +105,14 @@ class Main extends egret.DisplayObjectContainer {
         // 引用类型
         var testDict: Object = {};
         var obj1 = testDict["testObj1"];
+        var obj2;
         if (obj1 == null) {
-            testDict["testObj1"] = new LoadItem();
+            testDict["testObj1"] = obj2 = new LoadItem();
         }
         console.log("引用类型， obj1:" + obj1 + "  testDict[testObj1]:" + testDict["testObj1"]);
+        obj2 = null;
+        console.log("引用类型,testDict:" + testDict);
+
         // 数学帮助函数
         var testFloat:number = 2342.123;
         console.log("math floor，传入一个非整数，返回值是 "  + Math.floor(testFloat));

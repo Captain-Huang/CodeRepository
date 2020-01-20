@@ -4,9 +4,9 @@
 class AbstractAsset implements IAsset {
 
     public url: string;
-    public useCount: number;
-    public lastUseTime: number;
-    public autoClear: boolean;
+    public useCount: number = 0;
+    public lastUseTime: number = 0;
+    public autoClear: boolean = true;
     public customData: any;
 
     private _data: any;
@@ -87,8 +87,8 @@ class AbstractAsset implements IAsset {
      * 放入池时重置
      */
     public onPoolReset(): void {
+        this._data = null;
         this.url = null;
-        this.data = null;
         this.customData = null;
         this.useCount = 0;
         this.lastUseTime = 0;

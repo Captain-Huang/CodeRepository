@@ -42,4 +42,11 @@ class UICore {
     public static get uiRoot(): fgui.GComponent {
         return this._uiRoot;
     }
+
+    /**
+     * 加载资源列表
+     */
+    public static loadPackageList(resList:string[], callback ?:Handler) :void {
+        
+    }
 }

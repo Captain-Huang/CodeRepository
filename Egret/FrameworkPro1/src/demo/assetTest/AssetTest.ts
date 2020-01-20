@@ -8,6 +8,8 @@ class AssetTest implements IDemoTest {
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onGroupResourceLoadComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onGroupResourceLoadError, this);
         RES.loadGroup("AssetTest");
+
+        AssetManager.inst.enable = true;
     }
 
     stop(): void {
