@@ -95,7 +95,7 @@ class DemoMenu {
         RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onGroupResourceLoadError, this);
         RES.loadGroup("DemoMenu");
 
-        LayerManager.inst.addUIEvent(UIViewEvent.MENU_VIEW_CLOSE, this.onMenuViewCloseEvent, this);
+        // LayerManager.inst.addUIEvent(UIViewEvent.MENU_VIEW_CLOSE, this.onMenuViewCloseEvent, this);
     }
 
     private onGroupResourceLoadComplete(event: RES.ResourceEvent): void {
@@ -112,7 +112,7 @@ class DemoMenu {
         }
     }
 
-    protected onInit(): void {
+    protected onInit(): void {        
         fgui.UIPackage.addPackage("DemoMenu");
         this.view = fgui.UIPackage.createObject("DemoMenu", "Main").asCom;
         LayerManager.inst.menuLayer.addChild(this.view);
@@ -188,12 +188,15 @@ class DemoMenu {
         this.assetManagerTest = null;
     }
 
+    private uiWindowTest:UIWindowTest;
     private testUIFramework(): void {
-
+        this.uiWindowTest = new UIWindowTest();
+        this.uiWindowTest.begin();
     }
 
     private testUIFrameworkClose(): void {
-
+        this.uiWindowTest.stop();
+        this.uiWindowTest = null;
     }
 
     private testTable(): void {

@@ -67,7 +67,7 @@ class LoadQueue {
             item.completeCallbacks.push(this._onItemCompleteHandler);
             item.progressCallbacks.push(this._onItemProgressHandler);
             item.errorCallbacks.push(this._onItemErrorHandler);
-            LoadManager.inst.loadItem(item);
+            App.loadManager.loadItem(item);
         }
     }
 

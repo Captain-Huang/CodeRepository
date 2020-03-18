@@ -3,25 +3,33 @@
  */
 class LayerManager {
     private _root: egret.DisplayObjectContainer;
-    private _uiRoot: fairygui.GComponent;
+    private _uiRoot: egret.Sprite;
 
-    public menuLayer: fgui.GComponent;
-    public windowLayer: fgui.GComponent;
+    // UI
+    private _menuLayer: fgui.GComponent;
+    private _window: fgui.GComponent;
 
     private static _inst: LayerManager;
 
     public static get inst(): LayerManager {
-        if (!this._inst) {
+        if (this._inst == null) {
             this._inst = new LayerManager();
         }
-        return this._inst;
+        return LayerManager._inst;
     }
 
-    /**
-     * 渲染根节点
-     */
-    public set root(value: egret.DisplayObjectContainer) {
-        this._root = value;
+    public init(rootContainer: egret.DisplayObjectContainer): void {
+        this._root = rootContainer;
+        this._uiRoot = new egret.Sprite();
+        this._root.addChild(this._uiRoot);
+        UICore.init(this._uiRoot);
+
+        this._menuLayer = new fgui.GComponent();
+        UICore.root.addChild(this._menuLayer);
+        this._window = new fgui.GComponent();
+        UICore.root.addChild(this._window);
+
+        WindowManager.inst.initRoot(this._window);
     }
 
     /**
@@ -31,25 +39,12 @@ class LayerManager {
         return this._root;
     }
 
-    /**
-     * 渲染UI根节点
-     */
-    public set uiRoot(value: fgui.GComponent) {
-        this._uiRoot = value;
+    public get window(): fgui.GComponent {
+        return this._window
     }
 
-    /**
-     * 渲染UI根节点
-     */
-    public get uiRoot(): fgui.GComponent {
-        return this._uiRoot;
-    }
-
-    public init(): void {
-        this.menuLayer = new fgui.GComponent();
-        this._uiRoot.addChild(this.menuLayer);
-        this.windowLayer = new fgui.GComponent();
-        this._uiRoot.addChild(this.windowLayer);
+    public get menuLayer():fgui.GComponent {
+        return this._menuLayer;
     }
 
     public addUIEvent(type: string, listener: Function, thisObj: any): void {
@@ -65,12 +60,12 @@ class LayerManager {
     }
 
     public addUIView(view: fgui.GComponent): void {
-        view.x = (StageManager.inst.screenWidth - view.width) / 2;
-        view.y = (StageManager.inst.screenHeight - view.height) / 2;
-        this.menuLayer.addChild(view);
+        view.x = (App.stageManager.screenWidth - view.width) / 2;
+        view.y = (App.stageManager.screenHeight - view.height) / 2;
+        this._menuLayer.addChild(view);
     }
 
     public removeUIView(view: fgui.GComponent): void {
-        this.menuLayer.removeChild(view);
+        this._menuLayer.removeChild(view);
     }
 }

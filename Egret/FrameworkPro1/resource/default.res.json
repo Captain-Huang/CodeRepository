@@ -23,6 +23,10 @@
 		{
 			"keys": "AssetTest",
 			"name": "AssetTest"
+		},
+		{
+			"keys": "RoleWindow",
+			"name": "RoleWindow"
 		}
 	],
 	"resources": [
@@ -75,6 +79,11 @@
 			"url": "assets/ui/AssetTest.fui",
 			"type": "bin",
 			"name": "AssetTest"
+		},
+		{
+			"url": "assets/ui/RoleWindow.fui",
+			"type": "bin",
+			"name": "RoleWindow"
 		}
 	]
 }

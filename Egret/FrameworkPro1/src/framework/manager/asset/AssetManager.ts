@@ -1,44 +1,35 @@
 /**
  * 资源管理
  */
-class AssetManager {
+class AssetManager extends Manager implements IAssetManager {
     public showLog: boolean;
 
     private assetDict: Object;
 
-    private _enable: boolean;
+    private _enabled: boolean;
     private _autoClearTime: number;
     private _autoClearCheckTime: number;
     private _assetProxy: IAssetProxy;
 
-    private static _inst: AssetManager;
-
-    public constructor() {
+    protected init():void {
         this.assetDict = {};
         this.showLog = true;
-        this._enable = true;
+        this._enabled = true;
         this._autoClearTime = 10000;
         this._autoClearCheckTime = 10000;
     }
 
-    public static get inst(): AssetManager {
-        if (!this._inst) {
-            this._inst = new AssetManager();
-        }
-        return this._inst;
-    }
-
-    public set enable(value: boolean) {
-        this._enable = value;
+    public set enabled(value: boolean) {
+        this._enabled = value;
         if (value == true) {
-            TimerManager.inst.registerLoop(this._autoClearCheckTime, this.checkClearAsset, this);
+            App.timerManager.registerLoop(this._autoClearCheckTime, this.checkClearAsset, this);
         } else {
-            TimerManager.inst.unRegister(this.checkClearAsset, this);
+            App.timerManager.unRegister(this.checkClearAsset, this);
         }
     }
 
-    public get enable(): boolean {
-        return this._enable;
+    public get enabled(): boolean {
+        return this._enabled;
     }
 
     /**
@@ -46,8 +37,8 @@ class AssetManager {
      */
     public set autoClearCheckTime(value: number) {
         this._autoClearCheckTime = value;
-        if (this._enable) {
-            TimerManager.inst.registerLoop(this._autoClearCheckTime, this.checkClearAsset, this);
+        if (this._enabled) {
+            App.timerManager.registerLoop(this._autoClearCheckTime, this.checkClearAsset, this);
         }
     }
 
@@ -107,7 +98,7 @@ class AssetManager {
         }
     }
 
-    public getAssetPackage(url: string): void {
+    public getAssetPackage(url: string): IAssetPackage {
         return this.assetDict[url];
     }
 

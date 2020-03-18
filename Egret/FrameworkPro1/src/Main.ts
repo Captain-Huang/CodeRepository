@@ -29,8 +29,6 @@
 
 class Main extends egret.DisplayObjectContainer {
 
-
-
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
@@ -79,11 +77,13 @@ class Main extends egret.DisplayObjectContainer {
      */
     private initGame(): void {
         console.log("Game Start!");
-        this.fooTest();
+        // this.fooTest();
+        // this.addfguiView();
 
-        // 初始化UI
-        App.inst.startUp();
-        UICore.init(this);
+        // 初始化管理器
+        App.inst.startUp(this.stage);
+        App.inst.initManagers();
+        LayerManager.inst.init(this);                
         egret.ImageLoader.crossOrigin = "anonymous";
 
         // demo入口
@@ -114,11 +114,43 @@ class Main extends egret.DisplayObjectContainer {
         console.log("引用类型,testDict:" + testDict);
 
         // 数学帮助函数
-        var testFloat:number = 2342.123;
-        console.log("math floor，传入一个非整数，返回值是 "  + Math.floor(testFloat));
+        var testFloat: number = 2342.123;
+        console.log("math floor，传入一个非整数，返回值是 " + Math.floor(testFloat));
+
+        // 日志
+        var arr2: number[] = [2, 22, 2222];
+        console.log("数组打印：" + arr2.toString());
     }
 
     private printHelloWorld(): void {
         console.log("Hello world!");
+    }
+
+    private addfguiView(): void {
+        fgui.UIPackage.addPackage("UILib");
+
+        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onGroupResourceLoadComplete, this);
+        RES.loadGroup("DemoMenu");
+    }
+
+    private onGroupResourceLoadComplete(event: RES.ResourceEvent): void {
+        if (event.groupName == "DemoMenu") {
+            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onGroupResourceLoadComplete, this);
+            RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onGroupResourceLoadError, this);
+            this.onInit();
+        }
+    }
+
+    private onGroupResourceLoadError(event: RES.ResourceEvent): void {
+        if (event.groupName == "DemoMenu") {
+            console.error("资源加载失败：" + event.groupName);
+        }
+    }
+
+    protected onInit(): void {
+        fgui.UIPackage.addPackage("DemoMenu");
+        var view = fgui.UIPackage.createObject("DemoMenu", "Main").asCom;
+        this.addChild(fgui.GRoot.inst.displayObject);
+        fgui.GRoot.inst.addChild(view);
     }
 }

@@ -68,14 +68,14 @@ class TimerView extends AbstractUIView {
     }
 
     private onBtnOnceClick(): void {
-        TimerManager.inst.registerOnce(4000, () => {
+        App.timerManager.registerOnce(4000, () => {
             this.count++;
             this.content.text = "4秒后执行了计时器 一次  " + this.count;
         }, this)
     }
 
     private onBtnLoopClick(): void {
-        TimerManager.inst.registerLoop(4000, this.timerLoopCallback, this)
+        App.timerManager.registerLoop(4000, this.timerLoopCallback, this)
     }
 
     private timerLoopCallback(): void {
@@ -84,14 +84,14 @@ class TimerView extends AbstractUIView {
     }
 
     private onBtnFrameClick(): void {
-        TimerManager.inst.registerFrameOnce(300, () => {
+        App.timerManager.registerFrameOnce(300, () => {
             this.count++;
             this.content.text = "300帧后执行了计时器 一次  " + this.count;
         }, this)
     }
 
     private onBtnFrameLoopClick(): void {
-        TimerManager.inst.registerFrameLoop(300, this.timerFrameLoopCallback, this)
+        App.timerManager.registerFrameLoop(300, this.timerFrameLoopCallback, this)
     }
 
     private timerFrameLoopCallback(): void {
@@ -100,20 +100,20 @@ class TimerView extends AbstractUIView {
     }
 
     private onBtnFourTimesClick(): void {
-        TimerManager.inst.register(false, 4000, () => {
+        App.timerManager.register(false, 4000, () => {
             this.count++;
             this.content.text = "4秒后执行了计时器 多次  " + this.count;
         }, this, 4)
     }
 
     private onBtnUnLoopClick(): void {
-        TimerManager.inst.unRegister(this.timerLoopCallback, this)
+        App.timerManager.unRegister(this.timerLoopCallback, this)
         this.count = 0;
         this.content.text = "移除循环计时器  " + this.count;
     }
 
     private onBtnUnFrameLoopClick(): void {
-        TimerManager.inst.unRegister(this.timerFrameLoopCallback, this)
+        App.timerManager.unRegister(this.timerFrameLoopCallback, this)
         this.count = 0;
         this.content.text = "移除帧循环计时器  " + this.count;
     }

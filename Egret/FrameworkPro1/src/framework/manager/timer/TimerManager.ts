@@ -1,28 +1,21 @@
 /**
  * 计时器管理类
  */
-class TimerManager {
+class TimerManager extends Manager implements ITimerManager {
     private _time: number;
     private _timeSecond: number;
     private _curTime: number;
     private _curFrame: number;
+    private _deltaTime: number;
     private timerHandlers: Object;
 
-    private static _inst: TimerManager;
-
-    public constructor() {
+    protected init() {
         this.timerHandlers = [];
         this._curTime = 0;
         this._curFrame = 0;
+        this._deltaTime = 0;
     }
-
-    public static get inst(): TimerManager {
-        if (!this._inst) {
-            this._inst = new TimerManager();
-        }
-        return this._inst;
-    }
-
+    
     public set time(value: number) {
         this._time = value;
     }
@@ -47,6 +40,13 @@ class TimerManager {
      */
     public get curFrame(): number {
         return this._curFrame;
+    }
+
+    /**
+     * 帧间隔时间（毫秒）
+     */
+    public get deltaTime(): number {
+        return this._deltaTime;
     }
 
     public update(deltaTime: number): void {

@@ -59,7 +59,7 @@ class LoaderView extends AbstractUIView {
     }
 
     private onBtnLoadAssetClick(): void {
-        LoadManager.inst.load("http://192.168.1.252:8081/assets/action/4/4400002/4400002_3_4_tex.png", LoadType.TEXTURE, LoadPriority.LV_0, Handler.create(this.onResCompleteCallback, this));
+        App.loadManager.load("http://192.168.1.252:8081/assets/action/4/4400002/4400002_3_4_tex.png", LoadType.TEXTURE, LoadPriority.LV_0, Handler.create(this.onResCompleteCallback, this));
     }
 
     private onResCompleteCallback(loadItem:LoadItem): void {

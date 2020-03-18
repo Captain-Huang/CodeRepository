@@ -7,7 +7,7 @@ class EmptyScene extends AbstractScene {
      * 场景初始化
      */
     protected init(): void {
-
+        this.addModule(GameModules.window);
     }
 
     /**

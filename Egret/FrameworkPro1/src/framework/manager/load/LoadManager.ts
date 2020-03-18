@@ -1,23 +1,15 @@
 /**
  * 下载管理
  */
-class LoadManager {
+class LoadManager extends Manager implements ILoadManager {
     public maxLoadCount: number = 5;
 
-    private static _inst: LoadManager;
 
     private loadDict: Object;
     private loadPriorityDict: Object;
     private curLoaderArr: Array<ILoader>
 
-    public static get inst(): LoadManager {
-        if (!this._inst) {
-            this._inst = new LoadManager();
-        }
-        return this._inst;
-    }
-
-    public constructor() {
+    protected init():void {
         this.loadDict = {};
         this.curLoaderArr = [];
         this.loadPriorityDict = {};
@@ -87,7 +79,7 @@ class LoadManager {
 
 
     public loadItem(loadItem: LoadItem): LoadItem {
-        var asset: IAsset = AssetManager.inst.getAsset(loadItem.url);
+        var asset: IAsset = App.assetManager.getAsset(loadItem.url);
         if (asset != null) {
             // 资源存在
             loadItem.asset = asset;
@@ -129,7 +121,7 @@ class LoadManager {
                 items.splice(0, 1);
 
                 // 内存已存在资源
-                var asset: IAsset = AssetManager.inst.getAsset(item.url);
+                var asset: IAsset = App.assetManager.getAsset(item.url);
                 if (asset != null) {
                     item.asset = asset;
                     this.endLoad(item);
@@ -165,7 +157,7 @@ class LoadManager {
             if (asset != null) {
                 asset.url = loadItem.url;
                 if (loadItem.cache) {
-                    AssetManager.inst.addAsset(asset);
+                    App.assetManager.addAsset(asset);
                 }
             }
         }

@@ -1,3 +1,3 @@
-class AbstractUIWindowSubView implements IUIWindowSubView {
+// class AbstractUIWindowSubView implements IUIWindowSubView {
     
-}
+// }

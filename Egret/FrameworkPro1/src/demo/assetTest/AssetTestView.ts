@@ -65,11 +65,11 @@ class AssetTestView extends AbstractUIView {
     }
 
     private onBtnLoadAssetClick(): void {
-        LoadManager.inst.load("http://192.168.1.252:8081/assets/action/4/4400002/4400002_3_4_tex.png", LoadType.TEXTURE, LoadPriority.LV_0, Handler.create(this.onResCompleteCallback, this));
+        App.loadManager.load("http://192.168.1.252:8081/assets/action/4/4400002/4400002_3_4_tex.png", LoadType.TEXTURE, LoadPriority.LV_0, Handler.create(this.onResCompleteCallback, this));
     }
 
     private onBtnUnLoadAssetClick(): void {
-        AssetManager.inst.checkClearAsset(true);
+        App.assetManager.checkClearAsset(true);
     }
 
     private onResCompleteCallback(loadItem: LoadItem): void {
@@ -78,7 +78,7 @@ class AssetTestView extends AbstractUIView {
             this.spImg.texture = this.textureAsset.texture;
             this.textureAsset.use();
         }
-        TimerManager.inst.registerOnce(1500, () => {
+        App.timerManager.registerOnce(1500, () => {
             this.spImg.removeFromParent();
             this.spImg.dispose();
             this.textureAsset.unuse();
