@@ -77,18 +77,18 @@ class Main extends egret.DisplayObjectContainer {
      */
     private initGame(): void {
         console.log("Game Start!");
-        // this.fooTest();
+        this.fooTest();
         // this.addfguiView();
 
         // 初始化管理器
-        App.inst.startUp(this.stage);
-        App.inst.initManagers();
-        LayerManager.inst.init(this);                
-        egret.ImageLoader.crossOrigin = "anonymous";
+        // App.inst.startUp(this.stage);
+        // App.inst.initManagers();
+        // LayerManager.inst.init(this);                
+        // egret.ImageLoader.crossOrigin = "anonymous";
 
-        // demo入口
-        var demoMenu = new DemoMenu();
-        demoMenu.init();
+        // // demo入口
+        // var demoMenu = new DemoMenu();
+        // demoMenu.init();
     }
 
     private fooTest(): void {
@@ -120,6 +120,19 @@ class Main extends egret.DisplayObjectContainer {
         // 日志
         var arr2: number[] = [2, 22, 2222];
         console.log("数组打印：" + arr2.toString());
+
+        // 类型转换
+        var arrObj111:Array<ObjectBase> = [];
+        for (var obj111Index = 0; obj111Index < 10; ++obj111Index){
+            var obj111:ObjectBase  = new ObjectBase();
+            obj111.id = "obj1111_" + obj111Index;
+            arrObj111.push(obj111);
+        }
+
+        var arr3:Array<Obj111> = arrObj111 as Array<Obj111>;
+        for (var obj of arr3) {
+            obj.print();
+        }
     }
 
     private printHelloWorld(): void {
