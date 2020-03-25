@@ -1,0 +1,17 @@
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\客户端导表.exe.config
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\客户端导表.exe
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\客户端导表.pdb
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\obj\Debug\客户端导表.csprojAssemblyReference.cache
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\obj\Debug\客户端导表.csproj.CoreCompileInputs.cache
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\obj\Debug\客户端导表.exe
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\obj\Debug\客户端导表.pdb
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\EPPlus.dll
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\NPOI.dll
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\NPOI.OOXML.dll
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\NPOI.OpenXml4Net.dll
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\NPOI.OpenXmlFormats.dll
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\EPPlus.xml
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\NPOI.xml
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\obj\Debug\客户端导表.csproj.CopyComplete
+D:\workspace\_hts\3rdproject\Demo\VisualStudio\客户端导表\客户端导表\bin\Debug\Newtonsoft.Json.dll
