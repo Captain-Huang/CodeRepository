@@ -23,6 +23,7 @@ class ExcelHelper
             ExcelWorksheet sheet = package.Workbook.Worksheets[1];
             int rowCount = sheet.Dimension.End.Row - sheet.Dimension.Start.Row;
             int colCount = sheet.Dimension.End.Column - sheet.Dimension.Start.Column;
+            int realColCount = 0;
 
             //生成列头
             for (int i = 0; i < colCount; i++)
@@ -32,13 +33,14 @@ class ExcelHelper
                 {
                     while (dt.Columns.Contains(str)) str = str + "_1";
                     dt.Columns.Add(new DataColumn(str, typeof(string)));
+                    realColCount++;
                 }
             }
             // 生成行数据
             for (int iRow = 1; iRow <= rowCount; ++iRow)
             {
                 DataRow dr = dt.NewRow();
-                for (int iCol = 1; iCol <= colCount; ++iCol)
+                for (int iCol = 1; iCol <= realColCount; ++iCol)
                 {
                     string str = (string)GetValue(sheet, iRow, iCol).ToString();
                     dr[iCol - 1] = str;

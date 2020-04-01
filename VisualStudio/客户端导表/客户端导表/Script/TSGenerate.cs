@@ -86,7 +86,7 @@ export class $" + className + @" {
 ";
         codeStr += varAssignmentStr;
         // 处理结尾
-        var endStr = "    }\r\n}";
+        var endStr = "    }\r\n}\r\n}";
         codeStr += endStr;
         return codeStr;
     }
@@ -102,9 +102,46 @@ export class $" + className + @" {
 ";
         codeStr += annotationStr;
         // 生成类名
-        string classNameStr = String.Format("class {0} extends game_config.${1} implements ITxtTable {\r\n\r\n}", className, className);
+        string classNameStr = String.Format("class {0} extends game_config.${1} implements ITxtTable {2}", className, className, "{\r\n\r\n}");
 
         codeStr += classNameStr;
+        return codeStr;
+    }
+
+    public static string GenerateTables(Dictionary<string, string> keyValuePairs)
+    {
+        string codeStr = "";
+        string annotationStr = @"/**
+ * File is automatically generated, Please do not modify
+ */
+class Tables {
+";
+        codeStr += annotationStr;
+        foreach (var item in keyValuePairs)
+        {
+            string annotationTableStr = @"    /**
+    * " + item.Key + @"
+    */
+";
+            codeStr += annotationTableStr;
+            string tableVarStr = string.Format("    public static readonly {0}:string = \"{1}\";\r\n\r\n", item.Value, item.Value);
+            codeStr += tableVarStr;
+        }
+        string str1 = @"
+	/**
+	 * 所有表数组
+	 */
+	public static readonly allTables:Array<string> = [
+";
+        codeStr += str1;
+        foreach (var item in keyValuePairs)
+        {
+            string str2 = string.Format("        Tables.{0},\r\n", item.Value);
+            codeStr += str2;
+        }
+        codeStr += @"	];
+}
+";
         return codeStr;
     }
 
@@ -147,10 +184,10 @@ export class $" + className + @" {
                 newStr = "        this." + tsVar + " = " + "row[" + index + "];\r\n";
                 break;
             case "Array<string>":
-                newStr = "        if (row[" + index + "] == \"\") {\r\n" + "            this." + tsVar + " = new Array<string>();\r\n        } else {\r\n            filedArr = row[" + index + "].split(\',\');\r\n            this." + tsVar + " = new Array<string>()\r\n            for (var i = 0; i < filedArr.length; i++) {\r\n                this." + tsVar + "[" + index + "] = +filedArr[" + index + "];\r\n            }\r\n        }\r\n";
+                newStr = "        if (row[" + index + "] == \"\") {\r\n" + "            this." + tsVar + " = new Array<string>();\r\n        } else {\r\n            filedArr = row[" + index + "].split(\',\');\r\n            this." + tsVar + " = new Array<string>()\r\n            for (var i = 0; i < filedArr.length; i++) {\r\n                this." + tsVar + "[i] = filedArr[i];\r\n            }\r\n        }\r\n";
                 break;
             case "boolean":
-                newStr = "        this." + tsVar + " = " + "+row[" + index + "];" + " == \"1\" ? true : false;\r\n";
+                newStr = "        this." + tsVar + " = " + "row[" + index + "]" + " == \"1\" ? true : false;\r\n";
                 break;
         }
         return newStr;

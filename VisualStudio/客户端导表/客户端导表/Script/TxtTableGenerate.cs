@@ -28,7 +28,7 @@ class TxtTableGenerate
                 {
                     if (exportKeyValues[j] == true)
                     {
-                        txtTbStr += (data.Rows[i][j].ToString() + "    ");
+                        txtTbStr += (data.Rows[i][j].ToString() + "\t");
                     }
                 }
             }
