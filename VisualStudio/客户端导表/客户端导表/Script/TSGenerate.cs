@@ -85,6 +85,9 @@ export class $" + className + @" {
 
 ";
         codeStr += varAssignmentStr;
+        codeStr += @"
+        return this.ID;
+";
         // 处理结尾
         var endStr = "    }\r\n}\r\n}";
         codeStr += endStr;

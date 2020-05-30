@@ -66,6 +66,10 @@ namespace 客户端导表
             FileHelper.CreateDirectory(codeBasePath);
             FileHelper.CopyFile(codeBasePath + "../Common.ts", codeBasePath + "Common.ts", codeBasePath, true);
 
+            // 临时数据表目录
+            string tempTxtFolder = System.AppDomain.CurrentDomain.BaseDirectory + "txtDatas/";
+            FileHelper.CreateDirectory(tempTxtFolder);
+
             // 生成数据
             foreach (KeyValuePair<string, string> item in tableNameDict)
             {
@@ -75,7 +79,7 @@ namespace 客户端导表
                 var codeBaseOutPath = codeBasePath + "$" + item.Value + ".ts";
                 var excelFileName = FileHelper.GetFileName(item.Key);
                 var codeFileName = item.Value;
-                var dataOutPath = txtPath + codeFileName + ".txt";
+                var tempTxtOutPath = tempTxtFolder + codeFileName + ".txt";
                 var codeClassOutPath = codeClassPath + codeFileName + ".ts";
 
                 // 读取Excel
@@ -89,9 +93,10 @@ namespace 客户端导表
 
                 // 导出txt数据
                 var txtTbStr = TxtTableGenerate.GenerateTxtTable(tbData);
-                FileHelper.WriteText(dataOutPath, txtTbStr, true);
+                FileHelper.WriteText(tempTxtOutPath, txtTbStr, true);
             }
             var tablesOutPath = codePath + "/Tables.ts";
+
             // 生成所有表索引文件
             var tablesStr = TSGenerate.GenerateTables(tableNameDict);
             FileHelper.WriteText(tablesOutPath, tablesStr, true);
@@ -100,17 +105,17 @@ namespace 客户端导表
             {
                 Console.WriteLine("----------------------- 正在压缩表数据 -----------------------");
 
-                string zipPath = txtPath;
-                Directory.CreateDirectory(Path.GetDirectoryName(zipPath));
+                string zipPath = tempTxtFolder;
                 using (ZipOutputStream s = new ZipOutputStream(File.Create("table.byte")))
                 {
                     s.SetLevel(6);
-                    ZipUtil.CompressDir(s, zipPath);
+                    ZipUtil.CompressDir(s, zipPath, zipPath);
                     s.Finish();
                     s.Close();
                 }
-                FileHelper.MoveFile("table.byte", zipPath + "table.byte");
+                FileHelper.CopyFile("table.byte", txtPath + "table.byte", true);
                 FileHelper.DeleteFile("table.byte");
+                FileHelper.DeleteDirectory(zipPath);
             }
             
             Console.WriteLine("----------------------- 正在生成lib文件 -----------------------");

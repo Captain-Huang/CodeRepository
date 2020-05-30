@@ -78,11 +78,15 @@ public static class ZipUtil
     public static void CompressDir(ZipOutputStream zipOutput, string source, string relativePath = "")
     {
         string dir = source.Replace("\\", "/");
+        relativePath = relativePath.Replace("\\", "/");
         string newDir = dir.Substring(relativePath.Length);
-        ZipEntry dirEntry = new ZipEntry(newDir + "/");
-        dirEntry.IsUnicodeText = true;
-        zipOutput.PutNextEntry(dirEntry);
-        zipOutput.Flush();
+        if (newDir != "")
+        {
+            ZipEntry dirEntry = new ZipEntry(newDir + "/");
+            dirEntry.IsUnicodeText = true;
+            zipOutput.PutNextEntry(dirEntry);
+            zipOutput.Flush();
+        }
 
         string[] filenames = Directory.GetFileSystemEntries(source);
         foreach (string file in filenames)
