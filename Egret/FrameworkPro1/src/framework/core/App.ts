@@ -9,6 +9,7 @@ class App {
     private static _loadManager: ILoadManager;
     private static _stageManager: IStageManager;
     private static _logManager: ILogManager;
+    private static _tableManager: ITableManager;    
 
     private _stage: egret.Stage;
     private _curTime: number;
@@ -105,6 +106,8 @@ class App {
         this.addManager(App._stageManager);
         App._logManager = new LogManager();
         this.addManager(App._logManager);
+        App._tableManager = new TableManager();
+        this.addManager(App._tableManager);
     }
 
     public static get timerManager(): ITimerManager {
@@ -125,5 +128,9 @@ class App {
 
     public static get logManager(): ILogManager {
         return App._logManager;
+    }
+
+    public static get tableManager(): ITableManager {
+        return App._tableManager;
     }
 }

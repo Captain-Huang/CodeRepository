@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,UILib,UILib_atlas0",
+			"keys": "bg_jpg,egret_icon_png,UILib,UILib_atlas0,table_byte",
 			"name": "preload"
 		},
 		{
@@ -84,6 +84,11 @@
 			"url": "assets/ui/RoleWindow.fui",
 			"type": "bin",
 			"name": "RoleWindow"
+		},
+		{
+			"url": "assets/config/table.byte",
+			"type": "bin",
+			"name": "table_byte"
 		}
 	]
 }

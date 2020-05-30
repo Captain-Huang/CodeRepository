@@ -19,12 +19,13 @@ class DemoMenu {
     public static readonly MOVIECLIP = "2D序列帧动画";
     public static readonly DRAGONBONES = "骨骼动画";
     public static readonly ACTION2D = "2D动作渲染";
+    public static readonly ROLECONTROL = "角色状态机";
     public static readonly MAP2D = "2D地图";
     public static readonly ASTAR = "A*寻路";
-    public static readonly ROLECONTROL = "角色状态机";
     public static readonly PARTICLE2D = "2D技能";
     public static readonly AUDIO = "声音";
     
+    // TODO review 参考fairygui-egret demo
     public constructor() {
         this.demoNameArray = [
             DemoMenu.OBJECTPOOL,
@@ -39,9 +40,9 @@ class DemoMenu {
             DemoMenu.MOVIECLIP,
             DemoMenu.DRAGONBONES,
             DemoMenu.ACTION2D,
+            DemoMenu.ROLECONTROL,            
             DemoMenu.MAP2D,
             DemoMenu.ASTAR,
-            DemoMenu.ROLECONTROL,
             DemoMenu.PARTICLE2D,
             DemoMenu.AUDIO,
         ];
@@ -58,9 +59,9 @@ class DemoMenu {
             this.test2DMovieClip,
             this.testDragonBones,
             this.test2DAction,
+            this.testRoleControl,
             this.test2DMap,
             this.testAStar,
-            this.testRoleControl,
             this.test2DParticle,
             this.testAudio,
         ];
@@ -77,9 +78,9 @@ class DemoMenu {
             this.test2DMovieClipClose,
             this.testDragonBonesClose,
             this.test2DActionClose,
+            this.testRoleControlClose,
             this.test2DMapClose,
             this.testAStarClose,
-            this.testRoleControlClose,
             this.test2DParticleClose,
             this.testAudioClose,
         ];
@@ -200,7 +201,7 @@ class DemoMenu {
     }
 
     private testTable(): void {
-
+        
     }
 
     private testTableClose(): void {

@@ -77,19 +77,30 @@ class Main extends egret.DisplayObjectContainer {
      */
     private initGame(): void {
         console.log("Game Start!");
-        this.fooTest();
-        // this.addfguiView();
+        // this.fooTest();
 
         // 初始化管理器
-        // App.inst.startUp(this.stage);
-        // App.inst.initManagers();
-        // LayerManager.inst.init(this);                
-        // egret.ImageLoader.crossOrigin = "anonymous";
+        this.initEngine();
+        GamePreProcessor.init();
 
-        // // demo入口
-        // var demoMenu = new DemoMenu();
-        // demoMenu.init();
+        // demo入口
+        var demoMenu = new DemoMenu();
+        demoMenu.init();
     }
+
+    private initEngine(): void {
+        App.inst.startUp(this.stage);
+        App.inst.initManagers();
+
+        LayerManager.inst.init(this);
+
+        App.tableManager.txtStructFolder = "";
+        App.logManager.enabled = true;
+        App.logManager.isPrint = true;
+        egret.ImageLoader.crossOrigin = "anonymous";
+    }
+
+    // ---------------------------------- 分割线 ---------------------------------- 
 
     private fooTest(): void {
         // 获取类名
@@ -122,17 +133,35 @@ class Main extends egret.DisplayObjectContainer {
         console.log("数组打印：" + arr2.toString());
 
         // 类型转换
-        var arrObj111:Array<ObjectBase> = [];
-        for (var obj111Index = 0; obj111Index < 10; ++obj111Index){
-            var obj111:ObjectBase  = new ObjectBase();
+        var arrObj111: Array<ObjectBase> = [];
+        for (var obj111Index = 0; obj111Index < 10; ++obj111Index) {
+            var obj111: ObjectBase = new ObjectBase();
             obj111.id = "obj1111_" + obj111Index;
             arrObj111.push(obj111);
         }
 
-        var arr3:Array<Obj111> = arrObj111 as Array<Obj111>;
+        var arr3: Array<Obj111> = arrObj111 as Array<Obj111>;
         for (var obj of arr3) {
-            obj.print();
+            // obj.print();
         }
+
+        // js测试
+        // var a = globalFuncTest1();
+        // console.log(a);
+        // var b = globalFuncTest2();
+        // console.log(b);
+        // var time:number = egret.getTimer();
+        // var c = globalFuncTest3();
+        // console.log("globalFuncTest3 cost time:" + (egret.getTimer() - time) + "\n" +  c);
+        // console.log(globalFuncTest4());
+        setTimeout(()=> {
+            console.log("settimeout is called:" + testFloat);
+        }, 1000);
+        setInterval(()=>{
+            console.log("setInterval is called:" + testFloat);
+        }, 1000);
+
+        // this.addfguiView();        
     }
 
     private printHelloWorld(): void {
@@ -150,7 +179,7 @@ class Main extends egret.DisplayObjectContainer {
         if (event.groupName == "DemoMenu") {
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onGroupResourceLoadComplete, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onGroupResourceLoadError, this);
-            this.onInit();
+            this.initFgui();
         }
     }
 
@@ -160,7 +189,7 @@ class Main extends egret.DisplayObjectContainer {
         }
     }
 
-    protected onInit(): void {
+    protected initFgui(): void {
         fgui.UIPackage.addPackage("DemoMenu");
         var view = fgui.UIPackage.createObject("DemoMenu", "Main").asCom;
         this.addChild(fgui.GRoot.inst.displayObject);

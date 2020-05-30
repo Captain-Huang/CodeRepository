@@ -10,9 +10,9 @@ class LogManager extends Manager implements ILogManager {
         3: "FATEL"
     };
 
-    private _enabled: boolean;
-    private _isPrint: boolean;
-    private _isPrintToScreen: boolean;
+    private _enabled: boolean = true;
+    private _isPrint: boolean = true;
+    private _isPrintToScreen: boolean = false;
 
     private loggerDict: Object;
     private screenLogs: Array<string>;

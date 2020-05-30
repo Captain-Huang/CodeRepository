@@ -1,23 +1,24 @@
 /**
  * 数据模型基类
  */
-class AbstractModel implements IModel {
+class AbstractModel extends egret.EventDispatcher implements IModel {
 
     public constructor() {
+        super();
         this.init();
     }
 
     /**
      * 初始化
      */
-    public init():void {
+    protected init(): void {
 
     }
 
     /**
      * 重置
      */
-    public reset():void {
+    public reset(): void {
 
     }
 }

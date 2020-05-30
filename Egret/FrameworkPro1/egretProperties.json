@@ -28,6 +28,18 @@
     {
       "name": "fairygui",
       "path": "./libs/fairygui"
+    },
+    {
+      "name": "jszip",
+      "path": "./libs/jszip"
+    },
+    {
+      "name": "game_config",
+      "path": "./libs/game_config"
+    },
+    {
+      "name": "rawdeflate",
+      "path": "./libs/rawdeflate"
     }
   ]
 }
