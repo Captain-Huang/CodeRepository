@@ -77,15 +77,15 @@ class Main extends egret.DisplayObjectContainer {
      */
     private initGame(): void {
         console.log("Game Start!");
-        // this.fooTest();
+        this.fooTest();
 
         // 初始化管理器
-        this.initEngine();
-        GamePreProcessor.init();
+        // this.initEngine();
+        // GamePreProcessor.init();
 
-        // demo入口
-        var demoMenu = new DemoMenu();
-        demoMenu.init();
+        // // demo入口
+        // var demoMenu = new DemoMenu();
+        // demoMenu.init();
     }
 
     private initEngine(): void {
@@ -104,46 +104,46 @@ class Main extends egret.DisplayObjectContainer {
 
     private fooTest(): void {
         // 获取类名
-        console.log("根据类获取类名：" + egret.getQualifiedClassName(PoolTest));
-        console.log("根据类对象获取类名：" + egret.getQualifiedClassName(new PoolTest()));
-        console.log("根据函数获取函数：" + egret.getQualifiedClassName(this.initGame));
+        // console.log("根据类获取类名：" + egret.getQualifiedClassName(PoolTest));
+        // console.log("根据类对象获取类名：" + egret.getQualifiedClassName(new PoolTest()));
+        // console.log("根据函数获取函数：" + egret.getQualifiedClassName(this.initGame));
         // 空数组pop
-        var arrTest: Array<any> = [];
-        console.log("空数组pop: " + arrTest.pop());
+        // var arrTest: Array<any> = [];
+        // console.log("空数组pop: " + arrTest.pop());
         // 条件执行语句
-        var flag1: boolean = (1 + 1 == 2) ? true : false;
-        flag1 === true && this.printHelloWorld();
+        // var flag1: boolean = (1 + 1 == 2) ? true : false;
+        // flag1 === true && this.printHelloWorld();
         // 引用类型
-        var testDict: Object = {};
-        var obj1 = testDict["testObj1"];
-        var obj2;
-        if (obj1 == null) {
-            testDict["testObj1"] = obj2 = new LoadItem();
-        }
-        console.log("引用类型， obj1:" + obj1 + "  testDict[testObj1]:" + testDict["testObj1"]);
-        obj2 = null;
-        console.log("引用类型,testDict:" + testDict);
+        // var testDict: Object = {};
+        // var obj1 = testDict["testObj1"];
+        // var obj2;
+        // if (obj1 == null) {
+        //     testDict["testObj1"] = obj2 = new LoadItem();
+        // }
+        // console.log("引用类型， obj1:" + obj1 + "  testDict[testObj1]:" + testDict["testObj1"]);
+        // obj2 = null;
+        // console.log("引用类型,testDict:" + testDict);
 
         // 数学帮助函数
-        var testFloat: number = 2342.123;
-        console.log("math floor，传入一个非整数，返回值是 " + Math.floor(testFloat));
+        // var testFloat: number = 2342.123;
+        // console.log("math floor，传入一个非整数，返回值是 " + Math.floor(testFloat));
 
         // 日志
-        var arr2: number[] = [2, 22, 2222];
-        console.log("数组打印：" + arr2.toString());
+        // var arr2: number[] = [2, 22, 2222];
+        // console.log("数组打印：" + arr2.toString());
 
         // 类型转换
-        var arrObj111: Array<ObjectBase> = [];
-        for (var obj111Index = 0; obj111Index < 10; ++obj111Index) {
-            var obj111: ObjectBase = new ObjectBase();
-            obj111.id = "obj1111_" + obj111Index;
-            arrObj111.push(obj111);
-        }
+        // var arrObj111: Array<ObjectBase> = [];
+        // for (var obj111Index = 0; obj111Index < 10; ++obj111Index) {
+        //     var obj111: ObjectBase = new ObjectBase();
+        //     obj111.id = "obj1111_" + obj111Index;
+        //     arrObj111.push(obj111);
+        // }
 
-        var arr3: Array<Obj111> = arrObj111 as Array<Obj111>;
-        for (var obj of arr3) {
-            // obj.print();
-        }
+        // var arr3: Array<Obj111> = arrObj111 as Array<Obj111>;
+        // for (var obj of arr3) {
+        //     // obj.print();
+        // }
 
         // js测试
         // var a = globalFuncTest1();
@@ -154,14 +154,21 @@ class Main extends egret.DisplayObjectContainer {
         // var c = globalFuncTest3();
         // console.log("globalFuncTest3 cost time:" + (egret.getTimer() - time) + "\n" +  c);
         // console.log(globalFuncTest4());
-        setTimeout(()=> {
-            console.log("settimeout is called:" + testFloat);
-        }, 1000);
-        setInterval(()=>{
-            console.log("setInterval is called:" + testFloat);
-        }, 1000);
+        // setTimeout(()=> {
+        //     console.log("settimeout is called:" + testFloat);
+        // }, 1000);
+        // setInterval(()=>{
+        //     console.log("setInterval is called:" + testFloat);
+        // }, 1000);
 
-        // this.addfguiView();        
+        // this.addfguiView();   
+
+        this.runTemplateDemo();     
+    }
+
+    private runTemplateDemo():void {
+        var main = new TemplateMain();
+        this.addChild(main);
     }
 
     private printHelloWorld(): void {

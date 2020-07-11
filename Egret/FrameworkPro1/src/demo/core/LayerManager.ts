@@ -3,11 +3,16 @@
  */
 class LayerManager {
     private _root: egret.DisplayObjectContainer;
-    private _uiRoot: egret.Sprite;
+    private _uiRoot: BaseSprite;
+    private _worldRoot: BaseSprite;
 
     // UI
     private _menuLayer: fgui.GComponent;
     private _window: fgui.GComponent;
+
+    // 场景
+    private _worldObjectRoot: BaseSprite;
+    private _mapRoot: BaseSprite;
 
     private static _inst: LayerManager;
 
@@ -20,16 +25,24 @@ class LayerManager {
 
     public init(rootContainer: egret.DisplayObjectContainer): void {
         this._root = rootContainer;
-        this._uiRoot = new egret.Sprite();
+        this._uiRoot = new BaseSprite();
         this._root.addChild(this._uiRoot);
         UICore.init(this._uiRoot);
+        this._worldRoot = new BaseSprite();
+        this._root.addChild(this._worldRoot);
+
+        this._worldObjectRoot = new BaseSprite();
+        this._worldRoot.addChild(this._worldObjectRoot);
+        this._mapRoot = new BaseSprite();
+        this._worldRoot.addChild(this._mapRoot);
 
         this._menuLayer = new fgui.GComponent();
         UICore.root.addChild(this._menuLayer);
         this._window = new fgui.GComponent();
         UICore.root.addChild(this._window);
-
         WindowManager.inst.initRoot(this._window);
+
+
     }
 
     /**
@@ -43,8 +56,20 @@ class LayerManager {
         return this._window
     }
 
-    public get menuLayer():fgui.GComponent {
+    public get menuLayer(): fgui.GComponent {
         return this._menuLayer;
+    }
+
+    public get world(): BaseSprite {
+        return this._worldRoot;
+    }
+
+    public get worldObjectRoot(): BaseSprite {
+        return this._worldObjectRoot;
+    }
+
+    public get mapRoot(): BaseSprite {
+        return this._mapRoot;
     }
 
     public addUIEvent(type: string, listener: Function, thisObj: any): void {

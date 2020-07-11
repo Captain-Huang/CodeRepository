@@ -10,7 +10,7 @@ class SyncSceneProcessor extends SceneProcessor {
     private ignoreSoundDict: Object;
     private ignoreTextureDict: Object;
 
-    public controlRole: Role;
+    // public controlRole: Role;
 
     protected init(): void {
 
@@ -90,27 +90,27 @@ class SyncSceneProcessor extends SceneProcessor {
      */
     protected onEnterScene(event: egret.Event): void {
         var roleVo: RoleVo = GameModels.world.myRole;
-        this.addRole(roleVo, true);
+        // this.addRole(roleVo, true);
     }
 
     /**
      * 创建角色
      */
-    protected createRole(roleVo: RoleVo): Role {
-        var roleData: RoleData = RoleDataFactory.createRoleDataByRoleVo(roleVo);
-        return GameModules.role.createRole(roleData);
-    }
+    // protected createRole(roleVo: RoleVo): Role {
+    //     var roleData: RoleData = RoleDataFactory.createRoleDataByRoleVo(roleVo);
+    //     return GameModules.role.createRole(roleData);
+    // }
 
-    // ---------------------- 客户端测试接口 ----------------------
-    public enterScene(): void {
-        this.onEnterScene(null);
-    }
+    // // ---------------------- 客户端测试接口 ----------------------
+    // public enterScene(): void {
+    //     this.onEnterScene(null);
+    // }
 
-    public addRole(roleVo: RoleVo, setControl: boolean = false): void {
-        var role: Role = this.createRole(roleVo);
-        if (setControl) {
-            this.controlRole = role;
-            GameModules.role.setControlRole(role);
-        }
-    }
+    // public addRole(roleVo: RoleVo, setControl: boolean = false): void {
+    //     var role: Role = this.createRole(roleVo);
+    //     if (setControl) {
+    //         this.controlRole = role;
+    //         GameModules.role.setControlRole(role);
+    //     }
+    // }
 }

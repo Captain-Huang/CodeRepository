@@ -1,6 +1,6 @@
-/**
- * 角色动作视图
- */
-class RoleActionView extends ActionView {
+// /**
+//  * 角色动作视图
+//  */
+// class RoleActionView extends ActionView {
 
-}
+// }

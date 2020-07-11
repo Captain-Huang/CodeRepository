@@ -241,7 +241,7 @@ class DemoMenu {
     }
 
     private test2DMap(): void {
-
+        
     }
 
     private test2DMapClose(): void {
