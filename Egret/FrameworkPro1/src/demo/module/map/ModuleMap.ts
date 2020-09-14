@@ -1,5 +1,5 @@
 /**
- * 2D地图
+ * 地图模块
  */
 class ModuleMap extends AbstractModule {
     

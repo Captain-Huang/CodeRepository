@@ -4481,7 +4481,6 @@ var egret;
 //
 //////////////////////////////////////////////////////////////////////////////////////
 var egret;
-var count = 0;
 (function (egret) {
     /**
      * The DisplayObjectContainer class is a basic display list building block: a display list node that can contain children.
@@ -5233,8 +5232,6 @@ var count = 0;
             if (!this.$visible) {
                 return null;
             }
-			console.log("DisplayObjectContainer hitTest count:    " + count);
-            count++;
             var m = this.$getInvertedConcatenatedMatrix();
             var localX = m.a * stageX + m.c * stageY + m.tx;
             var localY = m.b * stageX + m.d * stageY + m.ty;

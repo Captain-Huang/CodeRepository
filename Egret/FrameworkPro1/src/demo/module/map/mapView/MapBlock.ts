@@ -1,6 +1,7 @@
 /**
  * 地块
  */
-class MapBlock {
-    
+class MapBlock extends BaseSprite {
+    public id: number;
+
 }
