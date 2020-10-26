@@ -101,6 +101,10 @@ namespace FTPClient
 
         static int SendFTPCompleteHttpReq()
         {
+            if (string.IsNullOrEmpty(DataCenter.httpUrl))
+            {
+                return 0;
+            }
             int result = HttpUtil.Load(DataCenter.httpUrl, "", "POST", DataCenter.httpUser, DataCenter.httpPassword);
             if (result == 201)
             {
@@ -109,7 +113,7 @@ namespace FTPClient
             }else
             {
                 Console.WriteLine("请求运维平台上传文件失败，返回值：" + result);
-                return result;
+                return 2;
             }
         }
     }

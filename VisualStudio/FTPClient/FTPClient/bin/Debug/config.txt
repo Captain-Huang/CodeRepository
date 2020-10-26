@@ -7,4 +7,4 @@ userName=huangtongshuai-ftp-release
 password=6gmwBfrwtD9P95iMNggJ+d9nBXc
 httpUser=ftp-release
 httpPassword=iphone12
-httpUrl=http://work.42bj.com/jenkins/job/test/job/test/build
+httpUrl=
