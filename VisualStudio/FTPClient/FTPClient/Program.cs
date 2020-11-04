@@ -19,6 +19,9 @@ namespace FTPClient
         {
             //string[] _arg = { "UpLoadFile", "../../client/Unity.log" };
             //arg = _arg;
+
+            LogUtil.isSaveLog = true;
+            LogUtil.Init();
             CommandLineArgs.Init(arg);
             DataCenter.Init();
 
@@ -31,7 +34,7 @@ namespace FTPClient
                     switch (action)
                     {
                         case "UpLoadFile":
-                            Console.WriteLine("执行UpLoadFile命令");
+                            LogUtil.Info("开始执行UpLoadFile命令");
                             int result = UpLoadFile(args);
                             if (result == 0)
                             {
@@ -39,13 +42,13 @@ namespace FTPClient
                             }
                             return result;
                         case "UpLoadDirFiles":
-                            Console.WriteLine("执行UpLoadDirFiles命令");
+                            LogUtil.Info("开始执行UpLoadDirFiles命令");
                             return UpLoadDirFiles();
                         case "DownloadFile":
-                            Console.WriteLine("执行DownloadFile命令");
+                            LogUtil.Info("开始执行DownloadFile命令");
                             return DownloadFile();
                         case "DownloadDirFiles":
-                            Console.WriteLine("执行DownloadDirFiles命令");
+                            LogUtil.Info("开始执行DownloadDirFiles命令");
                             return DownloadDirFiles();
                     }
                 }
@@ -71,18 +74,24 @@ namespace FTPClient
             ftpHelper = new FtpHelper(DataCenter.ip, DataCenter.port, DataCenter.userName, DataCenter.password);
             ftpHelper.RelatePath = DataCenter.remoteDirPath;
 
+            if (ftpHelper.CheckListDirectory() == false)
+            {
+                LogUtil.Info("远程目录不存在：" + DataCenter.remoteDirPath);
+                return 4;
+            }
+
             ftpHelper.RelatePath = string.Format("{0}/{1}", ftpHelper.RelatePath, Path.GetFileName(args));
             bool isOk;
             ftpHelper.UpLoad(args, out isOk);
             ftpHelper.SetPrePath();
             if (isOk)
             {
-                Console.WriteLine("文件 " + args + "  上传成功");
+                LogUtil.Info("文件 " + args + "  上传成功!");
                 return 0;
             }
             else
             {
-                Console.WriteLine("文件 " + args + "  上传失败");
+                LogUtil.Info("文件 " + args + "  上传失败!");
                 return 1;
             }
         }
@@ -108,11 +117,11 @@ namespace FTPClient
             int result = HttpUtil.Load(DataCenter.httpUrl, "", "POST", DataCenter.httpUser, DataCenter.httpPassword);
             if (result == 201)
             {
-                Console.WriteLine("请求运维平台上传文件成功，返回值：" + result);
+                LogUtil.Info("请求运维平台上传文件成功，返回值：" + result);
                 return 0;
             }else
             {
-                Console.WriteLine("请求运维平台上传文件失败，返回值：" + result);
+                LogUtil.Info("请求运维平台上传文件失败，http返回错误码：" + result);
                 return 2;
             }
         }

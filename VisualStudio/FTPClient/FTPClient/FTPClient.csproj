@@ -70,6 +70,7 @@
     <Compile Include="Src\Util\FileHelper.cs" />
     <Compile Include="Src\Util\FileUtil.cs" />
     <Compile Include="Src\Util\HttpUtil.cs" />
+    <Compile Include="Src\Util\LogUtil.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>

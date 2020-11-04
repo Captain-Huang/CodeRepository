@@ -46,7 +46,7 @@ namespace FTPClient
             {
                 response = (HttpWebResponse)request.GetResponse();
                 stateCode = Convert.ToInt32(response.StatusCode);
-                Console.Write(stateCode + " " + response.StatusCode.ToString() + "\r\n");
+                LogUtil.Info("http请求返回错误码："+ stateCode + " " + response.StatusCode.ToString() + "\r\n");
             }
             catch (WebException ex)
             {

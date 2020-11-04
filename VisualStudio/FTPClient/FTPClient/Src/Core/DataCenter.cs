@@ -81,7 +81,7 @@ namespace FTPClient
             httpPassword = configKeyValues["httpPassword"];
             if (string.IsNullOrEmpty(httpUrl) || string.IsNullOrEmpty(httpUrl) || string.IsNullOrEmpty(httpUrl) )
             {
-                Console.WriteLine("Http配置信息未配置");
+                LogUtil.Info("Http配置信息未配置，上传完成后将不会通知到运维！");
             }
         }
 

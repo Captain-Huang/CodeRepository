@@ -79,6 +79,11 @@ namespace FTPClient
         public void UpLoad(string file, out bool isOk)
         {
             isOk = false;
+            if (!FileHelper.FileExists(file))
+            {
+                LogUtil.Info("文件不存在：" + file);
+                return;
+            }
             FileInfo fi = new FileInfo(file);
             FileStream fs = fi.OpenRead();
             long length = fs.Length;
@@ -106,7 +111,7 @@ namespace FTPClient
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                LogUtil.Info(ex.ToString());
             }
             finally
             {
@@ -141,7 +146,7 @@ namespace FTPClient
                 }
                 else
                 {
-                    Console.WriteLine("error: 本地不存在此文件 " + localFileName);
+                    LogUtil.Info("error: 本地不存在此文件 " + localFileName);
                 }
                 return FtpBrokenDownload(localFileName, size);
             }
@@ -187,6 +192,20 @@ namespace FTPClient
         }
 
         /// <summary>
+        /// 检查远程目录是否存在
+        /// </summary>
+        public bool CheckListDirectory()
+        {
+            string method = WebRequestMethods.Ftp.ListDirectory;
+            FtpWebResponse response = callFtp(method);
+            if (response != null && response.StatusCode == FtpStatusCode.OpeningData)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// 设置上级目录
         /// </summary>
         public void SetPrePath()
@@ -225,7 +244,17 @@ namespace FTPClient
             {
                 request.ContentOffset = offsetSize;
             }
-            FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+            FtpWebResponse response;
+            try
+            {
+                response = (FtpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Info(ex.ToString());
+                return null;
+            }
+
             return response;
         }
 

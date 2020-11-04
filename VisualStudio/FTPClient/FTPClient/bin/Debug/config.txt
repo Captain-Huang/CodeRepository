@@ -1,10 +1,10 @@
 localFilePath=
 localDirPath=
-remoteDirPath=
-ip=81.69.172.36
-port=2121
-userName=huangtongshuai-ftp-release
-password=6gmwBfrwtD9P95iMNggJ+d9nBXc
+remoteDirPath=/h5_slg1
+ip=182.254.209.217
+port=21
+userName=h5_user
+password=qwert12345!@#$%
+httpUrl=http://work.42bj.com/jenkins/job/cqdzy_g/job/client/build
 httpUser=ftp-release
 httpPassword=iphone12
-httpUrl=
