@@ -1,5 +1,4 @@
 #include <stdio.h>
-//#include "../Interface/IApplication.hpp"
 #include "IApplication.hpp"
 
 using namespace My;

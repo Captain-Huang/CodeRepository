@@ -1,4 +1,4 @@
-#include "../Framework/Interface/BaseApplication.hpp"
+#include "BaseApplication.hpp"
 
 namespace My {
 	BaseApplication g_app;

@@ -11,5 +11,5 @@ namespace My {
 		virtual void Tick() = 0;
 
 		virtual bool IsQuit() = 0;
-	}
+	};
 }

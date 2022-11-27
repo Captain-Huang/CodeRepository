@@ -13,6 +13,6 @@ add_subdirectory(Framework)
 add_subdirectory(Empty)
 
 # 将源代码添加到此项目的可执行文件。
-add_executable (GameEngineFromScratch "Framework/Common/main.cpp" "Framework/Interface/Interface.hpp" "Framework/Interface/IRuntimeModule.hpp" "Framework/Interface/IApplication.hpp" "Framework/Common/BaseApplication.hpp" "Framework/Common/BaseApplication.cpp")
+add_executable (GameEngineFromScratch "Framework/Common/main.cpp" "Framework/Interface/Interface.hpp" "Framework/Interface/IRuntimeModule.hpp" "Framework/Interface/IApplication.hpp" "Framework/Common/BaseApplication.hpp" "Framework/Common/BaseApplication.cpp" "Platform/Windows/HelloEngine_WIN.c")
 
 # TODO: 如有需要，请添加测试并安装目标。

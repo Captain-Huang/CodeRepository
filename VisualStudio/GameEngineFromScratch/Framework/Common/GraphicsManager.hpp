@@ -1,5 +1,5 @@
 #pragma once
-#include "../Interface/IRuntimeModule.hpp"
+#include "IRuntimeModule.hpp"
 
 namespace My {
 	class GraphicsManager : implements IRuntimeModule {
